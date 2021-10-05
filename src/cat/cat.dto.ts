@@ -16,8 +16,9 @@ class Characteristics {
   color: string;
 }
 
-@InputType('CatInputType')
-export class CatInputType {
+@ObjectType({ isAbstract: true })
+@InputType({ isAbstract: true })
+export class CatBase {
   @Field()
   breed: string;
 
@@ -25,15 +26,12 @@ export class CatInputType {
   characteristics: Characteristics;
 }
 
-@ObjectType('CatType')
-@InputType('CatTypeInput')
-export class CatType {
-  @Field()
+@InputType('CatInput')
+export class CatInput extends CatBase {}
+
+@ObjectType('Cat')
+export class Cat extends CatBase {
+  @Field({nullable: false})
   _id: string;
-
-  @Field()
-  breed: string;
-
-  @Field()
-  characteristics: Characteristics;
 }
+

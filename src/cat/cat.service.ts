@@ -1,27 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Cat, CatDocument } from './cat.schema';
+import { Cat as CatSchema, CatDocument } from './cat.schema';
 import { Model } from 'mongoose';
-import { CatInputType, CatType } from './cat.dto';
+import { CatInput } from './cat.dto';
 
 @Injectable()
 export class CatService {
-  constructor(@InjectModel(Cat.name) private catModel: Model<CatDocument>) {}
+  constructor(@InjectModel(CatSchema.name) private catModel: Model<CatDocument>) {}
 
-  async findAll(): Promise<Cat[]> {
+  async findAll(): Promise<CatSchema[]> {
     return this.catModel.find().exec();
   }
 
-  async create(createCatDto: CatInputType): Promise<Cat> {
+  async create(createCatDto: CatInput): Promise<CatSchema> {
     const createdCat = new this.catModel(createCatDto);
     return createdCat.save();
   }
 
-  async update(id: string, updateCatDto: CatInputType): Promise<Cat> {
+  async update(id: string, updateCatDto: CatInput): Promise<CatSchema> {
     return this.catModel.findByIdAndUpdate(id, updateCatDto);
   }
 
-  async delete(id: string): Promise<Cat> {
+  async delete(id: string): Promise<CatSchema> {
     return this.catModel.findByIdAndDelete(id);
   }
 }
