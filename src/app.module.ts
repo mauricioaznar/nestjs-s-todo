@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { CatModule } from './cat/cat.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import {AuthModule} from "./auth/auth.module";
 
 
 if (!process.env.MONGO_DATABASE) {
@@ -21,6 +22,7 @@ if (!process.env.MONGO_URL) {
       `${process.env.MONGO_URL}/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`,
     ),
     CatModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

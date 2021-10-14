@@ -18,7 +18,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate:up:dev": "env-cmd -f ./.env.develop migrate-mongo up",
-    "migrate:status:dev": "env-cmd -f ./.env.develop migrate-mongo status"
+    "migrate:status:dev": "env-cmd -f ./.env.develop migrate-mongo status",
+    "migrate:up:prod": "env-cmd -f ./.env migrate-mongo up",
+    "migrate:status:prod": "env-cmd -f ./.env migrate-mongo status"
   },
   "author": "",
   "license": "ISC",
@@ -26,16 +28,21 @@
     "@nestjs/common": "^8.0.9",
     "@nestjs/core": "^8.0.9",
     "@nestjs/graphql": "^9.0.5",
+    "@nestjs/jwt": "^8.0.0",
     "@nestjs/mongoose": "^9.0.0",
+    "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-express": "^8.0.9",
     "apollo-server-express": "^3.3.0",
+    "env-cmd": "^10.1.0",
     "graphql": "^15.6.0",
     "graphql-tools": "^8.2.0",
     "mongoose": "^6.0.9",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.3.1",
-    "env-cmd": "^10.1.0"
+    "rxjs": "^7.3.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.1.2",
@@ -44,6 +51,8 @@
     "@types/express": "^4.17.13",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.10.2",
+    "@types/passport-jwt": "^3.0.6",
+    "@types/passport-local": "^1.0.34",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",

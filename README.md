@@ -5,3 +5,8 @@
 ## TODO
 
 * make a proper intersection for CatInputType
+
+
+## Resources
+
+* [Graphql example](https://github.com/EricKit/nest-user-auth/tree/master/src/auth)
