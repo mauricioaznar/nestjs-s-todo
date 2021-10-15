@@ -4,7 +4,7 @@ import {Field, InputType, ObjectType} from "@nestjs/graphql";
 @InputType({ isAbstract: true })
 export class UserBase {
     @Field()
-    breed: string;
+    username: string;
 
     @Field()
     password: string;
@@ -19,3 +19,9 @@ export class User extends UserBase {
     _id: string;
 }
 
+
+@ObjectType('AccessToken')
+export class AccessToken {
+    @Field({nullable: false})
+    accessToken: string;
+}
