@@ -6,12 +6,14 @@ export class UserBase {
     @Field()
     username: string;
 
-    @Field()
-    password: string;
+
 }
 
 @InputType('userInput')
-export class UserInput extends UserBase {}
+export class UserInput extends UserBase {
+    @Field()
+    password: string;
+}
 
 @ObjectType('User')
 export class User extends UserBase {

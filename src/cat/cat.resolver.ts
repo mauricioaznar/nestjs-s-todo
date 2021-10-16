@@ -1,12 +1,16 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CatService } from './cat.service';
 import { CatInput, Cat } from './cat.dto';
+import {GqlAuthGuard} from "../auth/guards/gql-auth.guard";
+import {UseGuards} from "@nestjs/common";
 
 @Resolver()
 export class CatResolver {
   constructor(private readonly catService: CatService) {}
 
+
   @Query((returns) => [Cat])
+  @UseGuards(GqlAuthGuard)
   async cats() {
     return this.catService.findAll();
   }
