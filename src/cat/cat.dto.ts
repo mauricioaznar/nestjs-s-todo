@@ -1,18 +1,23 @@
 import { ObjectType, Field, InputType } from '@nestjs/graphql';
+import {Prop, Schema} from "@nestjs/mongoose";
 
 @ObjectType('Characteristics')
 @InputType('CharacteristicsInput')
 class Characteristics {
   @Field()
+  @Prop()
   lifespan: string;
 
   @Field()
+  @Prop()
   size: 'small' | 'medium' | 'large';
 
   @Field()
+  @Prop()
   coat: 'short' | 'medium' | 'long';
 
   @Field()
+  @Prop()
   color: string;
 }
 
@@ -20,9 +25,11 @@ class Characteristics {
 @InputType({ isAbstract: true })
 export class CatBase {
   @Field()
+  @Prop()
   breed: string;
 
   @Field()
+  @Prop()
   characteristics: Characteristics;
 }
 
@@ -30,8 +37,9 @@ export class CatBase {
 export class CatInput extends CatBase {}
 
 @ObjectType('Cat')
+@Schema()
 export class Cat extends CatBase {
   @Field({nullable: false})
-  _id: string;
+  readonly _id: string;
 }
 

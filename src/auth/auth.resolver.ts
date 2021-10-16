@@ -1,8 +1,10 @@
-import {Resolver, Args, Query, Mutation} from '@nestjs/graphql';
-import { AuthService } from './auth.service';
-import { AuthenticationError } from 'apollo-server-core';
+import {Args, Mutation, Query, Resolver} from '@nestjs/graphql';
+import {AuthService} from './auth.service';
+import {AuthenticationError} from 'apollo-server-core';
 import {AccessToken, User, UserInput} from "./auth.dto";
-import {Cat} from "../cat/cat.dto";
+import {UseGuards} from "@nestjs/common";
+import {GqlAuthGuard} from "./guards/gql-auth.guard";
+import {CurrentUser} from "./decorators/current-user.decorator";
 
 @Resolver()
 export class AuthResolver {
@@ -15,6 +17,24 @@ export class AuthResolver {
         throw new AuthenticationError(
             'Could not log-in with the provided credentials',
         );
+    }
+
+    @Query((returns) => User)
+    @UseGuards(GqlAuthGuard)
+    async currentUser(@CurrentUser() currentUser: User) {
+        return this.authService.findOne(currentUser.username);
+    }
+
+    @Mutation((returns) => User)
+    @UseGuards(GqlAuthGuard)
+    async createUser(@Args('userInput') input: UserInput) {
+        return this.authService.create(input);
+    }
+
+    @Query((returns) => [User])
+    @UseGuards(GqlAuthGuard)
+    async users() {
+        return this.authService.findAll();
     }
 
     // // There is no username guard here because if the person has the token, they can be any user
