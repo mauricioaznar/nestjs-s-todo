@@ -26,7 +26,6 @@ export class AuthResolver {
     }
 
     @Mutation((returns) => User)
-    @UseGuards(GqlAuthGuard)
     async createUser(@Args('userInput') input: UserInput) {
         return this.authService.create(input);
     }

@@ -4,6 +4,7 @@ import {AccessToken, User, UserInput} from "./auth.dto";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
 import {UserDocument} from "./auth.schema";
+import * as bcrypt from 'bcrypt';
 
 export type UserSchema = any;
 
@@ -16,11 +17,15 @@ export class AuthService {
 
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.findOne(username);
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
+    if (!user) {
+      return null;
     }
-    return null;
+    const isMatch = await bcrypt.compare(pass, user.password);
+    if (!isMatch) {
+      return null;
+    }
+    const { password, ...result } = user;
+    return result;
   }
 
   async login(userInput: UserInput): Promise<AccessToken> {
@@ -35,22 +40,10 @@ export class AuthService {
     }
   }
 
-
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'john',
-      password: 'changeme',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-  ];
-
   async findOne(username: string): Promise<UserSchema | undefined> {
-    return this.users.find(user => user.username === username);
+    return this.userModel.findOne({
+      username: username
+    }).exec();
   }
 
   async findAll(): Promise<User[]> {
@@ -58,7 +51,12 @@ export class AuthService {
   }
 
   async create(userInput: UserInput): Promise<User> {
-    const createdUser = new this.userModel(userInput);
+    const saltOrRounds = 10;
+    const password = await bcrypt.hash(userInput.password, saltOrRounds);
+    const createdUser = new this.userModel({
+      ...userInput,
+      password
+    });
     return createdUser.save();
   }
 

@@ -4,7 +4,7 @@ import {LocalStrategy} from './strategies/local.strategy';
 import {JwtStrategy} from './strategies/jwt.strategy';
 import {PassportModule} from '@nestjs/passport';
 import {JwtModule} from '@nestjs/jwt';
-import {jwtConstants} from './constants';
+import {jwtConstants} from './constants/constants';
 import {AuthResolver} from "./auth.resolver";
 import {MongooseModule} from "@nestjs/mongoose";
 import {UserSchema} from "./auth.schema";
