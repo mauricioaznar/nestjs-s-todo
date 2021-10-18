@@ -23,7 +23,7 @@ export class UserInput extends UserBase {
 @Schema()
 export class User extends UserBase {
     @Field({nullable: false})
-    readonly _id: string;
+    _id: string;
 }
 
 

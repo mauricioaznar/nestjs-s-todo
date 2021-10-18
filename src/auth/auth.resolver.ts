@@ -22,7 +22,7 @@ export class AuthResolver {
     @Query((returns) => User)
     @UseGuards(GqlAuthGuard)
     async currentUser(@CurrentUser() currentUser: User) {
-        return this.authService.findOne(currentUser.username);
+        return this.authService.findOneByUsername({ username: currentUser.username });
     }
 
     @Mutation((returns) => User)

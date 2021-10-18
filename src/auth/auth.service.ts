@@ -5,6 +5,8 @@ import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
 import {UserDocument} from "./auth.schema";
 import * as bcrypt from 'bcrypt';
+import mongoose from "mongoose";
+import {options} from "tsconfig-paths/lib/options";
 
 export type UserSchema = any;
 
@@ -16,7 +18,7 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.findOne(username);
+    const user = await this.findOneByUsername({ username });
     if (!user) {
       return null;
     }
@@ -24,14 +26,13 @@ export class AuthService {
     if (!isMatch) {
       return null;
     }
-    const { password, ...result } = user;
-    return result;
+    return user;
   }
 
   async login(userInput: UserInput): Promise<AccessToken> {
     const res = await this.validateUser(userInput.username, userInput.password)
     if (res) {
-      const payload = { username: userInput.username, password: userInput.password };
+      const payload = { username: userInput.username, _id: res._id };
       return {
         accessToken: this.jwtService.sign(payload),
       };
@@ -40,14 +41,18 @@ export class AuthService {
     }
   }
 
-  async findOne(username: string): Promise<UserSchema | undefined> {
+  async findOneByUsername({ username }: {username: string}): Promise<UserSchema | undefined> {
     return this.userModel.findOne({
       username: username
-    }).exec();
+    });
   }
 
   async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
+    return this.userModel.find();
+  }
+
+  async findOneById({ userId }: { userId: mongoose.Schema.Types.ObjectId }) {
+    return this.userModel.findOne({ _id: userId })
   }
 
   async create(userInput: UserInput): Promise<User> {

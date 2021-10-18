@@ -1,12 +1,18 @@
-import {Args, Mutation, Query, Resolver} from '@nestjs/graphql';
+import {Args, Mutation, Parent, Query, ResolveField, ResolveProperty, Resolver} from '@nestjs/graphql';
 import {TodoService} from './todo.service';
 import {GqlAuthGuard} from "../auth/guards/gql-auth.guard";
 import {UseGuards} from "@nestjs/common";
 import {Todo, TodoInput} from "./todo.dto";
+import {User} from "../auth/auth.dto";
+import {AuthService} from "../auth/auth.service";
+import {CurrentUser} from "../auth/decorators/current-user.decorator";
 
-@Resolver()
+@Resolver(() => Todo)
 export class TodoResolver {
-    constructor(private readonly todoService: TodoService) {
+    constructor(
+        private readonly todoService: TodoService,
+        private readonly authService: AuthService,
+        ) {
     }
 
 
@@ -17,11 +23,16 @@ export class TodoResolver {
     }
 
     @Mutation((returns) => Todo)
-    async createTodo(@Args('todoInput') input: TodoInput) {
-        return this.todoService.create(input);
+    @UseGuards(GqlAuthGuard)
+    async createTodo(
+        @Args('todoInput') input: TodoInput,
+        @CurrentUser() currentUser: User) {
+        const user = await this.authService.findOneByUsername({ username: currentUser.username });
+        return this.todoService.create(input, user);
     }
 
     @Mutation((returns) => Todo)
+    @UseGuards(GqlAuthGuard)
     async updateTodo(
         @Args('_id') id: string,
         @Args('todoInput') input: TodoInput,
@@ -30,7 +41,14 @@ export class TodoResolver {
     }
 
     @Mutation((returns) => Todo)
+    @UseGuards(GqlAuthGuard)
     async deleteTodo(@Args('_id') id: string) {
         return this.todoService.delete(id);
+    }
+
+    @ResolveField('user', () => User)
+    async user(@Parent() todo: Todo): Promise<User> {
+        const userId = todo.user;
+        return this.authService.findOneById({ userId: userId })
     }
 }
