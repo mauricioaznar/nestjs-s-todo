@@ -1,5 +1,5 @@
 import { ObjectType, Field, InputType } from '@nestjs/graphql';
-import {Prop, Schema} from "@nestjs/mongoose";
+import { Prop, Schema } from '@nestjs/mongoose';
 
 @ObjectType('Characteristics')
 @InputType('CharacteristicsInput')
@@ -39,7 +39,6 @@ export class CatInput extends CatBase {}
 @ObjectType('Cat')
 @Schema()
 export class Cat extends CatBase {
-  @Field({nullable: false})
+  @Field({ nullable: false })
   readonly _id: string;
 }
-

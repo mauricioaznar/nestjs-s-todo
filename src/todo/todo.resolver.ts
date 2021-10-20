@@ -1,54 +1,63 @@
-import {Args, Mutation, Parent, Query, ResolveField, ResolveProperty, Resolver} from '@nestjs/graphql';
-import {TodoService} from './todo.service';
-import {GqlAuthGuard} from "../auth/guards/gql-auth.guard";
-import {UseGuards} from "@nestjs/common";
-import {Todo, TodoInput} from "./todo.dto";
-import {User} from "../auth/auth.dto";
-import {AuthService} from "../auth/auth.service";
-import {CurrentUser} from "../auth/decorators/current-user.decorator";
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  ResolveProperty,
+  Resolver,
+} from '@nestjs/graphql';
+import { TodoService } from './todo.service';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { UseGuards } from '@nestjs/common';
+import { Todo, TodoInput } from './todo.dto';
+import { User } from '../auth/auth.dto';
+import { AuthService } from '../auth/auth.service';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
 @Resolver(() => Todo)
 export class TodoResolver {
-    constructor(
-        private readonly todoService: TodoService,
-        private readonly authService: AuthService,
-        ) {
-    }
+  constructor(
+    private readonly todoService: TodoService,
+    private readonly authService: AuthService,
+  ) {}
 
+  @Query((returns) => [Todo])
+  @UseGuards(GqlAuthGuard)
+  async todos() {
+    return this.todoService.findAll();
+  }
 
-    @Query((returns) => [Todo])
-    @UseGuards(GqlAuthGuard)
-    async todos() {
-        return this.todoService.findAll();
-    }
+  @Mutation((returns) => Todo)
+  @UseGuards(GqlAuthGuard)
+  async createTodo(
+    @Args('todoInput') input: TodoInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    const user = await this.authService.findOneByUsername({
+      username: currentUser.username,
+    });
+    return this.todoService.create(input, user);
+  }
 
-    @Mutation((returns) => Todo)
-    @UseGuards(GqlAuthGuard)
-    async createTodo(
-        @Args('todoInput') input: TodoInput,
-        @CurrentUser() currentUser: User) {
-        const user = await this.authService.findOneByUsername({ username: currentUser.username });
-        return this.todoService.create(input, user);
-    }
+  @Mutation((returns) => Todo)
+  @UseGuards(GqlAuthGuard)
+  async updateTodo(
+    @Args('_id') id: string,
+    @Args('todoInput') input: TodoInput,
+  ) {
+    return this.todoService.update(id, input);
+  }
 
-    @Mutation((returns) => Todo)
-    @UseGuards(GqlAuthGuard)
-    async updateTodo(
-        @Args('_id') id: string,
-        @Args('todoInput') input: TodoInput,
-    ) {
-        return this.todoService.update(id, input);
-    }
+  @Mutation((returns) => Todo)
+  @UseGuards(GqlAuthGuard)
+  async deleteTodo(@Args('_id') id: string) {
+    return this.todoService.delete(id);
+  }
 
-    @Mutation((returns) => Todo)
-    @UseGuards(GqlAuthGuard)
-    async deleteTodo(@Args('_id') id: string) {
-        return this.todoService.delete(id);
-    }
-
-    @ResolveField('user', () => User)
-    async user(@Parent() todo: Todo): Promise<User> {
-        const userId = todo.user;
-        return this.authService.findOneById({ userId: userId })
-    }
+  @ResolveField('user', () => User)
+  async user(@Parent() todo: Todo): Promise<User> {
+    const userId = todo.user;
+    return this.authService.findOneById({ userId: userId });
+  }
 }
