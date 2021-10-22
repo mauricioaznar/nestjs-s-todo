@@ -41,7 +41,7 @@ export class TodoResolver {
       username: currentUser.username,
     });
     const todo = this.todoService.create(input, user);
-    await pubSub.publish('todoCreated', { todoCreated: todo });
+    await pubSub.publish('todo', { todo: todo });
     return todo;
   }
 
@@ -51,13 +51,17 @@ export class TodoResolver {
     @Args('_id') id: string,
     @Args('todoInput') input: TodoInput,
   ) {
-    return this.todoService.update(id, input);
+    const todo = this.todoService.update(id, input);
+    await pubSub.publish('todo', { todo: todo });
+    return todo;
   }
 
   @Mutation((returns) => Todo)
   @UseGuards(GqlAuthGuard)
   async deleteTodo(@Args('_id') id: string) {
-    return this.todoService.delete(id);
+    const todo = this.todoService.delete(id);
+    await pubSub.publish('todo', { todo: todo });
+    return todo;
   }
 
   @ResolveField('user', () => User)
@@ -68,7 +72,7 @@ export class TodoResolver {
 
   @Subscription((returns) => Todo)
   @UseGuards(GqlAuthGuard)
-  async todoCreated() {
-    return pubSub.asyncIterator('todoCreated');
+  async todo() {
+    return pubSub.asyncIterator('todo');
   }
 }
