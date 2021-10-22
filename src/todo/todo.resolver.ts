@@ -4,8 +4,8 @@ import {
   Parent,
   Query,
   ResolveField,
-  ResolveProperty,
   Resolver,
+  Subscription,
 } from '@nestjs/graphql';
 import { TodoService } from './todo.service';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
@@ -14,6 +14,9 @@ import { Todo, TodoInput } from './todo.dto';
 import { User } from '../auth/auth.dto';
 import { AuthService } from '../auth/auth.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { PubSub } from 'graphql-subscriptions';
+
+const pubSub = new PubSub();
 
 @Resolver(() => Todo)
 export class TodoResolver {
@@ -37,7 +40,9 @@ export class TodoResolver {
     const user = await this.authService.findOneByUsername({
       username: currentUser.username,
     });
-    return this.todoService.create(input, user);
+    const todo = this.todoService.create(input, user);
+    await pubSub.publish('todoCreated', { todoCreated: todo });
+    return todo;
   }
 
   @Mutation((returns) => Todo)
@@ -59,5 +64,11 @@ export class TodoResolver {
   async user(@Parent() todo: Todo): Promise<User> {
     const userId = todo.user;
     return this.authService.findOneById({ userId: userId });
+  }
+
+  @Subscription((returns) => Todo)
+  @UseGuards(GqlAuthGuard)
+  async todoCreated() {
+    return pubSub.asyncIterator('todoCreated');
   }
 }

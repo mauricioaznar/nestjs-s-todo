@@ -36,6 +36,7 @@
     "bcrypt": "^5.0.1",
     "env-cmd": "^10.1.0",
     "graphql": "^15.6.0",
+    "graphql-subscriptions": "^1.2.1",
     "graphql-tools": "^8.2.0",
     "mongoose": "^6.0.9",
     "passport": "^0.4.1",

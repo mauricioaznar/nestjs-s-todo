@@ -17,6 +17,17 @@ if (!process.env.MONGO_URL) {
   imports: [
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
+      installSubscriptionHandlers: true,
+      subscriptions: {
+        'subscriptions-transport-ws': {
+          onConnect: (connectionParams) => {
+            return { connectionParams };
+          },
+        },
+      },
+      context: ({ req, connection }) => {
+        return connection ? { req: connection.context } : { req };
+      },
     }),
     MongooseModule.forRoot(
       `${process.env.MONGO_URL}/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`,
