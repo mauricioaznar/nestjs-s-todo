@@ -72,7 +72,8 @@ export class TodoResolver {
 
   @Subscription((returns) => Todo)
   @UseGuards(GqlAuthGuard)
-  async todo() {
+  async todo(@CurrentUser() user) {
+    console.log(user);
     return pubSub.asyncIterator('todo');
   }
 }
