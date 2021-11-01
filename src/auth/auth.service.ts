@@ -2,11 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AccessToken, User, UserInput } from './auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { UserDocument } from './auth.schema';
 import * as bcrypt from 'bcrypt';
-import mongoose from 'mongoose';
-import { options } from 'tsconfig-paths/lib/options';
 
 export type UserSchema = any;
 

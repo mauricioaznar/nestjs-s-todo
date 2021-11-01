@@ -20,7 +20,7 @@ if (!process.env.MONGO_URL) {
       installSubscriptionHandlers: true,
       subscriptions: {
         'subscriptions-transport-ws': {
-          onConnect: (connectionParams) => {
+          onConnect: (connectionParams, options) => {
             return { connectionParams };
           },
         },

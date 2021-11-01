@@ -70,8 +70,15 @@ export class TodoResolver {
     return this.authService.findOneById({ userId: userId });
   }
 
-  @Subscription((returns) => Todo)
-  @UseGuards(GqlAuthGuard)
+  @Subscription((returns) => Todo, {
+    async filter(this: TodoResolver, value, variables, args) {
+      console.log(await this.authService.findAll());
+      console.log(value);
+      console.log(variables);
+      console.log(args);
+      return value;
+    },
+  })
   async todo() {
     return pubSub.asyncIterator('todo');
   }
