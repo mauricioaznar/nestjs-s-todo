@@ -3,15 +3,21 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Todo, TodoInput } from './todo.dto';
 import { TodoDocument } from './todo.schema';
-import { UserDocument } from '../auth/auth.schema';
 import { User } from '../auth/auth.dto';
 
 @Injectable()
 export class TodoService {
   constructor(@InjectModel(Todo.name) private todoModel: Model<TodoDocument>) {}
 
-  async findAll(): Promise<Todo[]> {
-    return this.todoModel.find().exec();
+  async findAll(options: { user: User }): Promise<Todo[]> {
+    console.log(options.user);
+    const todos = await this.todoModel
+      .find({
+        user: options.user._id,
+      })
+      .exec();
+    console.log(todos);
+    return todos;
   }
 
   async create(createTodoDto: TodoInput, user: User): Promise<Todo> {

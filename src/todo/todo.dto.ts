@@ -2,6 +2,7 @@ import { ObjectType, Field, InputType } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { User } from '../auth/auth.dto';
 import * as mongoose from 'mongoose';
+import { UserDocument } from '../auth/auth.schema';
 
 @ObjectType({ isAbstract: true })
 @InputType({ isAbstract: true })
@@ -30,5 +31,5 @@ export class Todo extends TodoBase {
 
   @Field((type) => User, { nullable: true })
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  user: mongoose.Schema.Types.ObjectId;
+  user: string | mongoose.Schema.Types.ObjectId | UserDocument;
 }

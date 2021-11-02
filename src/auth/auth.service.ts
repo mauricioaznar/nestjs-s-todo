@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AccessToken, User, UserInput } from './auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
+import mongoose, { Model, ObjectId } from 'mongoose';
 import { UserDocument } from './auth.schema';
 import * as bcrypt from 'bcrypt';
 
@@ -49,12 +49,28 @@ export class AuthService {
     });
   }
 
+  async findOneByToken(args: {
+    connectionParams: {
+      authorization: string;
+    };
+  }): Promise<UserSchema | undefined> {
+    const token = args.connectionParams.authorization.split(' ')[1];
+    const result = this.jwtService.decode(token) as { username: string };
+    return this.userModel.findOne({
+      username: result.username,
+    });
+  }
+
   async findAll(): Promise<User[]> {
     return this.userModel.find();
   }
 
-  async findOneById({ userId }: { userId: mongoose.Schema.Types.ObjectId }) {
-    return this.userModel.findOne({ _id: userId });
+  async findOneByUser({
+    user,
+  }: {
+    user: string | mongoose.Schema.Types.ObjectId | UserDocument;
+  }) {
+    return this.userModel.findOne({ _id: user });
   }
 
   async create(userInput: UserInput): Promise<User> {

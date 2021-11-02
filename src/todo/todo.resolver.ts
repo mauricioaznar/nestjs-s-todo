@@ -27,8 +27,13 @@ export class TodoResolver {
 
   @Query((returns) => [Todo])
   @UseGuards(GqlAuthGuard)
-  async todos() {
-    return this.todoService.findAll();
+  async todos(@CurrentUser() currentUser: User) {
+    const user = await this.authService.findOneByUsername({
+      username: currentUser.username,
+    });
+    return this.todoService.findAll({
+      user,
+    });
   }
 
   @Mutation((returns) => Todo)
@@ -40,7 +45,7 @@ export class TodoResolver {
     const user = await this.authService.findOneByUsername({
       username: currentUser.username,
     });
-    const todo = this.todoService.create(input, user);
+    const todo = await this.todoService.create(input, user);
     await pubSub.publish('todo', { todo: todo });
     return todo;
   }
@@ -51,7 +56,7 @@ export class TodoResolver {
     @Args('_id') id: string,
     @Args('todoInput') input: TodoInput,
   ) {
-    const todo = this.todoService.update(id, input);
+    const todo = await this.todoService.update(id, input);
     await pubSub.publish('todo', { todo: todo });
     return todo;
   }
@@ -59,24 +64,23 @@ export class TodoResolver {
   @Mutation((returns) => Todo)
   @UseGuards(GqlAuthGuard)
   async deleteTodo(@Args('_id') id: string) {
-    const todo = this.todoService.delete(id);
+    const todo = await this.todoService.delete(id);
     await pubSub.publish('todo', { todo: todo });
     return todo;
   }
 
   @ResolveField('user', () => User)
   async user(@Parent() todo: Todo): Promise<User> {
-    const userId = todo.user;
-    return this.authService.findOneById({ userId: userId });
+    const user = todo.user;
+    return this.authService.findOneByUser({ user: user });
   }
 
   @Subscription((returns) => Todo, {
     async filter(this: TodoResolver, value, variables, args) {
-      console.log(await this.authService.findAll());
-      console.log(value);
-      console.log(variables);
-      console.log(args);
-      return value;
+      // todo maybe add some sort of validation to args { connectionParams:  { authorization: string; }}
+      const user = await this.authService.findOneByToken(args);
+      const { todo } = value;
+      return user._id.equals(todo.user);
     },
   })
   async todo() {
