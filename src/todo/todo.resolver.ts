@@ -77,7 +77,6 @@ export class TodoResolver {
 
   @Subscription((returns) => Todo, {
     async filter(this: TodoResolver, value, variables, args) {
-      // todo maybe add some sort of validation to args { connectionParams:  { authorization: string; }}
       const user = await this.authService.findOneByToken(args);
       const { todo } = value;
       return user._id.equals(todo.user);
