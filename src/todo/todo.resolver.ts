@@ -28,11 +28,8 @@ export class TodoResolver {
   @Query((returns) => [Todo])
   @UseGuards(GqlAuthGuard)
   async todos(@CurrentUser() currentUser: User) {
-    const user = await this.authService.findOneByUsername({
-      username: currentUser.username,
-    });
     return this.todoService.findAll({
-      user,
+      user: currentUser,
     });
   }
 
@@ -42,10 +39,7 @@ export class TodoResolver {
     @Args('todoInput') input: TodoInput,
     @CurrentUser() currentUser: User,
   ) {
-    const user = await this.authService.findOneByUsername({
-      username: currentUser.username,
-    });
-    const todo = await this.todoService.create(input, user);
+    const todo = await this.todoService.create(input, currentUser);
     await pubSub.publish('todo', { todo: todo });
     return todo;
   }

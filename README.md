@@ -7,8 +7,12 @@
 * make a proper intersection for CatInputType
 * todo maybe add some sort of validation to args { connectionParams:  { authorization: string; }}
 * todo erase cache when logged out of application
-* todo move this to currentUser decorator
+* validate that the user is correct on update and delete (currentUser === todo.user)
 
+
+## Done 
+
+* todo move this to currentUser decorator
 
 ## Resources
 

@@ -10,14 +10,11 @@ export class TodoService {
   constructor(@InjectModel(Todo.name) private todoModel: Model<TodoDocument>) {}
 
   async findAll(options: { user: User }): Promise<Todo[]> {
-    console.log(options.user);
-    const todos = await this.todoModel
+    return this.todoModel
       .find({
         user: options.user._id,
       })
       .exec();
-    console.log(todos);
-    return todos;
   }
 
   async create(createTodoDto: TodoInput, user: User): Promise<Todo> {
