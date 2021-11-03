@@ -9,12 +9,13 @@ import { User } from '../auth/auth.dto';
 export class TodoService {
   constructor(@InjectModel(Todo.name) private todoModel: Model<TodoDocument>) {}
 
+  async findOne(options: { _id: string }) {
+    return this.todoModel.findById(options._id).exec();
+  }
+
   async findAll(options: { user: User }): Promise<Todo[]> {
-    return this.todoModel
-      .find({
-        user: options.user._id,
-      })
-      .exec();
+    return this.todoModel.find({}).exec();
+    // user: options.user._id,
   }
 
   async create(createTodoDto: TodoInput, user: User): Promise<Todo> {

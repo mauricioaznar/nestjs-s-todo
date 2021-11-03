@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { TodoModule } from './todo/todo.module';
 import { ApolloError } from 'apollo-server-express';
+import { GraphQLError, GraphQLFormattedError } from 'graphql';
 
 if (!process.env.MONGO_DATABASE) {
   throw new Error('process.env.MONGO_DATABASE is not defined');
@@ -30,6 +31,13 @@ if (!process.env.MONGO_URL) {
             return { connectionParams };
           },
         },
+      },
+      formatError: (error: GraphQLError) => {
+        const graphQLFormattedError: GraphQLFormattedError = {
+          message:
+            error.extensions?.exception?.response?.message || error.message,
+        };
+        return graphQLFormattedError;
       },
       context: ({ req, connection }) => {
         return connection ? { req: connection.context } : { req };

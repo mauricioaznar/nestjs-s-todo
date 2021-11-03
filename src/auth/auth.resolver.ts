@@ -10,7 +10,7 @@ import { CurrentUser } from './decorators/current-user.decorator';
 export class AuthResolver {
   constructor(private authService: AuthService) {}
 
-  @Mutation((returns) => AccessToken)
+  @Mutation(() => AccessToken)
   async login(@Args('userInput') input: UserInput) {
     const result = await this.authService.login(input);
     if (result) return result;
@@ -19,7 +19,7 @@ export class AuthResolver {
     );
   }
 
-  @Query((returns) => User)
+  @Query(() => User)
   @UseGuards(GqlAuthGuard)
   async currentUser(@CurrentUser() currentUser: User) {
     return this.authService.findOneByUsername({
@@ -27,12 +27,12 @@ export class AuthResolver {
     });
   }
 
-  @Mutation((returns) => User)
+  @Mutation(() => User)
   async createUser(@Args('userInput') input: UserInput) {
     return this.authService.create(input);
   }
 
-  @Query((returns) => [User])
+  @Query(() => [User])
   @UseGuards(GqlAuthGuard)
   async users() {
     return this.authService.findAll();

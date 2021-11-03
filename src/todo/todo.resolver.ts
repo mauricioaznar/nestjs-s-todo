@@ -15,6 +15,7 @@ import { User } from '../auth/auth.dto';
 import { AuthService } from '../auth/auth.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { PubSub } from 'graphql-subscriptions';
+import { ForbiddenError } from 'apollo-server-express';
 
 const pubSub = new PubSub();
 
@@ -49,7 +50,12 @@ export class TodoResolver {
   async updateTodo(
     @Args('_id') id: string,
     @Args('todoInput') input: TodoInput,
+    @CurrentUser() currentUser: User,
   ) {
+    const oldTodo = await this.todoService.findOne({ _id: id });
+    if (oldTodo.user.toString() !== currentUser._id) {
+      return new ForbiddenError('Your user is not allowed to delete this post');
+    }
     const todo = await this.todoService.update(id, input);
     await pubSub.publish('todo', { todo: todo });
     return todo;
@@ -57,7 +63,11 @@ export class TodoResolver {
 
   @Mutation((returns) => Todo)
   @UseGuards(GqlAuthGuard)
-  async deleteTodo(@Args('_id') id: string) {
+  async deleteTodo(@Args('_id') id: string, @CurrentUser() currentUser: User) {
+    const oldTodo = await this.todoService.findOne({ _id: id });
+    if (oldTodo.user.toString() !== currentUser._id) {
+      return new ForbiddenError('Your user is not allowed to delete this post');
+    }
     const todo = await this.todoService.delete(id);
     await pubSub.publish('todo', { todo: todo });
     return todo;
