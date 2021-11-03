@@ -32,9 +32,6 @@ if (!process.env.MONGO_URL) {
         },
       },
       context: ({ req, connection }) => {
-        if (connection) {
-          console.log(connection.context);
-        }
         return connection ? { req: connection.context } : { req };
       },
     }),
