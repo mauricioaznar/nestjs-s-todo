@@ -6,8 +6,6 @@
 
 * server validation for properties (required, date, email)
 * client validation for properties (required, date, email)
-* date formatting react
-* 
 
 
 ## Done 
@@ -18,7 +16,7 @@
 * todo maybe add some sort of validation to args { connectionParams:  { authorization: string; }}
 * todo erase cache when logged out of application
 * make a proper intersection for CatInputType
-* 
+* date formatting react
 
 ## Resources
 

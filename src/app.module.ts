@@ -32,12 +32,18 @@ if (!process.env.MONGO_URL) {
           },
         },
       },
-      formatError: (error: GraphQLError) => {
-        const graphQLFormattedError: GraphQLFormattedError = {
-          message:
-            error.extensions?.exception?.response?.message || error.message,
-        };
-        return graphQLFormattedError;
+      formatError: (error: any) => {
+        if (error instanceof GraphQLError) {
+          const graphQLFormattedError: GraphQLFormattedError = {
+            message:
+              error.extensions?.exception?.response?.message || error.message,
+          };
+          return graphQLFormattedError;
+        } else if (error instanceof ApolloError) {
+          return {
+            message: error.extensions.response.message,
+          };
+        }
       },
       context: ({ req, connection }) => {
         return connection ? { req: connection.context } : { req };
