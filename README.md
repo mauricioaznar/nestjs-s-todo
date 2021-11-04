@@ -4,15 +4,21 @@
 
 ## TODO
 
-* make a proper intersection for CatInputType
-* validate that the user is correct on update and delete (currentUser === todo.user)
+* server validation for properties (required, date, email)
+* client validation for properties (required, date, email)
+* date formatting react
+* 
 
 
 ## Done 
 
+* validate that the user is correct on update and delete (currentUser === todo.user)
+* react animations
 * todo move this to currentUser decorator
 * todo maybe add some sort of validation to args { connectionParams:  { authorization: string; }}
 * todo erase cache when logged out of application
+* make a proper intersection for CatInputType
+* 
 
 ## Resources
 
