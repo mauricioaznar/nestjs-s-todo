@@ -26,7 +26,7 @@ export class TodoResolver {
     private readonly authService: AuthService,
   ) {}
 
-  @Query((returns) => [Todo])
+  @Query(() => [Todo])
   @UseGuards(GqlAuthGuard)
   async todos(@CurrentUser() currentUser: User) {
     return this.todoService.findAll({
@@ -34,7 +34,7 @@ export class TodoResolver {
     });
   }
 
-  @Mutation((returns) => Todo)
+  @Mutation(() => Todo)
   @UseGuards(GqlAuthGuard)
   async createTodo(
     @Args('todoInput') input: TodoInput,
@@ -45,7 +45,7 @@ export class TodoResolver {
     return todo;
   }
 
-  @Mutation((returns) => Todo)
+  @Mutation(() => Todo)
   @UseGuards(GqlAuthGuard)
   async updateTodo(
     @Args('_id') id: string,
@@ -61,12 +61,17 @@ export class TodoResolver {
     return todo;
   }
 
-  @Mutation((returns) => Todo)
+  @Mutation(() => Todo)
   @UseGuards(GqlAuthGuard)
   async deleteTodo(@Args('_id') id: string, @CurrentUser() currentUser: User) {
     const oldTodo = await this.todoService.findOne({ _id: id });
     if (oldTodo.user.toString() !== currentUser._id) {
       return new ForbiddenError('Your user is not allowed to delete this post');
+    }
+    if (oldTodo.locked === true) {
+      return new ForbiddenError(
+        'Todo is locked. Unlock it first before deletion.',
+      );
     }
     const todo = await this.todoService.delete(id);
     await pubSub.publish('todo', { todo: todo });
@@ -79,7 +84,7 @@ export class TodoResolver {
     return this.authService.findOneByUser({ user: user });
   }
 
-  @Subscription((returns) => Todo, {
+  @Subscription(() => Todo, {
     async filter(this: TodoResolver, value, variables, args) {
       const user = await this.authService.findOneByToken(args);
       const { todo } = value;

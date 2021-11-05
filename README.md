@@ -4,7 +4,18 @@
 
 ## TODO
 
-* login leaking memory in front
+### Very important
+
+* lock property on todos
+* create MauCheckInput
+
+### Normal flow
+
+* archive property on todos
+* pagination mechanism
+* filter by date
+* order by date
+* change layout to cards
 
 ### Not so important
 
@@ -13,9 +24,12 @@
 ## Done 
 
 
-### Recent 
+### Recent
+
+### < 05/11/2021 
 
 * dark mode
+* login leaking memory in front
 * server validation for properties (required, date, email)
 * client validation for properties (required, date, email)
 

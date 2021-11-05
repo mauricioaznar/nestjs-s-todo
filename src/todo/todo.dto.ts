@@ -21,6 +21,10 @@ export class TodoBase {
   @Field()
   @Prop()
   completed: boolean;
+
+  @Field()
+  @Prop()
+  locked: boolean;
 }
 
 @InputType('TodoInput')
@@ -32,7 +36,7 @@ export class Todo extends TodoBase {
   @Field({ nullable: false })
   readonly _id: string;
 
-  @Field((type) => User, { nullable: true })
+  @Field(() => User, { nullable: true })
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: string | mongoose.Schema.Types.ObjectId | UserDocument;
 }
