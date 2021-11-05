@@ -5,11 +5,17 @@
 ## TODO
 
 * login leaking memory in front
+* dark mode
+
+## Done 
+
+
+### Recent 
+
 * server validation for properties (required, date, email)
 * client validation for properties (required, date, email)
 
-
-## Done 
+### < 04/11/2021
 
 * validate that the user is correct on update and delete (currentUser === todo.user)
 * react animations
