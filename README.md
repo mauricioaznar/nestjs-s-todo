@@ -4,6 +4,7 @@
 
 ## TODO
 
+* login leaking memory in front
 * server validation for properties (required, date, email)
 * client validation for properties (required, date, email)
 

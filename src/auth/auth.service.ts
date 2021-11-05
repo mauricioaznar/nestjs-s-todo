@@ -29,7 +29,6 @@ export class AuthService {
 
   async login(userInput: UserInput): Promise<AccessToken> {
     const res = await this.validateUser(userInput.username, userInput.password);
-    console.log(res);
     if (res) {
       const payload = { username: userInput.username, _id: res._id };
       return {

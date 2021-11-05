@@ -13,7 +13,6 @@ export class AuthResolver {
   @Mutation(() => AccessToken)
   async login(@Args('userInput') input: UserInput) {
     const result = await this.authService.login(input);
-    console.log(result);
     if (result) return result;
     throw new AuthenticationError(
       'Could not log-in with the provided credentials',
