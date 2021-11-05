@@ -5,13 +5,17 @@
 ## TODO
 
 * login leaking memory in front
-* dark mode
+
+### Not so important
+
+* code organization
 
 ## Done 
 
 
 ### Recent 
 
+* dark mode
 * server validation for properties (required, date, email)
 * client validation for properties (required, date, email)
 
