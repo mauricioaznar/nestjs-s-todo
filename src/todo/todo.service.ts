@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Todo, TodoInput } from './todo.dto';
+import { Todo, TodoInput, TodoQueryArgs } from './todo.dto';
 import { TodoDocument } from './todo.schema';
 import { User } from '../auth/auth.dto';
 
@@ -13,8 +13,16 @@ export class TodoService {
     return this.todoModel.findById(options._id).exec();
   }
 
-  async findAll(options: { user: User }): Promise<Todo[]> {
-    return this.todoModel.find({}).exec();
+  async findAll(options: {
+    user: User;
+    todoQueryArgs?: TodoQueryArgs;
+  }): Promise<Todo[]> {
+    const { user, todoQueryArgs } = options;
+    return this.todoModel
+      .find({
+        archived: todoQueryArgs?.archived,
+      })
+      .exec();
     // user: options.user._id,
   }
 

@@ -10,7 +10,7 @@ import {
 import { TodoService } from './todo.service';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
-import { Todo, TodoInput } from './todo.dto';
+import { Todo, TodoInput, TodoQueryArgs } from './todo.dto';
 import { User } from '../auth/auth.dto';
 import { AuthService } from '../auth/auth.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
@@ -28,8 +28,12 @@ export class TodoResolver {
 
   @Query(() => [Todo])
   @UseGuards(GqlAuthGuard)
-  async todos(@CurrentUser() currentUser: User) {
+  async todos(
+    @CurrentUser() currentUser: User,
+    @Args('todoQueryArgs', { nullable: true }) todoQueryArgs?: TodoQueryArgs,
+  ) {
     return this.todoService.findAll({
+      todoQueryArgs: todoQueryArgs,
       user: currentUser,
     });
   }

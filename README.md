@@ -12,10 +12,12 @@
 ### Normal flow
 
 * archive property on todos
-* pagination mechanism
+* query by archive
 * filter by date
 * order by date
 * change layout to cards
+* pagination mechanism
+* toaster when todo query fails
 
 ### Not so important
 

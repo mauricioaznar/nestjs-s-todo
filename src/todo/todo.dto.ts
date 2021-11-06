@@ -1,4 +1,4 @@
-import { ObjectType, Field, InputType } from '@nestjs/graphql';
+import { ObjectType, Field, InputType, ArgsType } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { User } from '../auth/auth.dto';
 import * as mongoose from 'mongoose';
@@ -25,6 +25,16 @@ export class TodoBase {
   @Field()
   @Prop()
   locked: boolean;
+
+  @Field()
+  @Prop()
+  archived: boolean;
+}
+
+@InputType('TodoQueryArgs')
+export class TodoQueryArgs {
+  @Field({ nullable: true })
+  archived?: boolean;
 }
 
 @InputType('TodoInput')
