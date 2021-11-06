@@ -6,13 +6,10 @@
 
 ### Very important
 
-* lock property on todos
 * create MauCheckInput
 
 ### Normal flow
 
-* archive property on todos
-* query by archive
 * filter by date
 * order by date
 * change layout to cards
@@ -25,11 +22,16 @@
 
 ## Done 
 
+* archive property on todos
+* query by archive
 
 ### Recent
 
+### < 06/11/2021
+
 ### < 05/11/2021 
 
+* lock property on todos
 * dark mode
 * login leaking memory in front
 * server validation for properties (required, date, email)
