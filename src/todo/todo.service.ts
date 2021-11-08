@@ -16,13 +16,24 @@ export class TodoService {
   async findAll(options: {
     user: User;
     todoQueryArgs?: TodoQueryArgs;
+    limit?: number;
+    offset?: number;
   }): Promise<Todo[]> {
-    const { user, todoQueryArgs } = options;
-    return this.todoModel
-      .find({
-        archived: todoQueryArgs?.archived,
-      })
-      .exec();
+    const { user, todoQueryArgs, limit, offset } = options;
+    const query = this.todoModel.find({
+      archived: todoQueryArgs?.archived,
+    });
+
+    if (limit) {
+      query.limit(limit);
+    }
+
+    if (offset) {
+      query.skip(offset);
+    }
+
+    return query.exec();
+
     // user: options.user._id,
   }
 

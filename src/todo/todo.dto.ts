@@ -4,6 +4,7 @@ import { User } from '../auth/auth.dto';
 import * as mongoose from 'mongoose';
 import { UserDocument } from '../auth/auth.schema';
 import { MinLength } from 'class-validator';
+import relayTypes from '../common/relay.types';
 
 @ObjectType({ isAbstract: true })
 @InputType({ isAbstract: true })
@@ -31,7 +32,7 @@ export class TodoBase {
   archived: boolean;
 }
 
-@InputType('TodoQueryArgs')
+@ArgsType()
 export class TodoQueryArgs {
   @Field({ nullable: true })
   archived?: boolean;
@@ -50,3 +51,6 @@ export class Todo extends TodoBase {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: string | mongoose.Schema.Types.ObjectId | UserDocument;
 }
+
+@ObjectType()
+export default class TodoResponse extends relayTypes<Todo>(Todo) {}

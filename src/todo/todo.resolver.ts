@@ -10,12 +10,14 @@ import {
 import { TodoService } from './todo.service';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
-import { Todo, TodoInput, TodoQueryArgs } from './todo.dto';
+import TodoResponse, { Todo, TodoInput, TodoQueryArgs } from './todo.dto';
 import { User } from '../auth/auth.dto';
 import { AuthService } from '../auth/auth.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { PubSub } from 'graphql-subscriptions';
 import { ForbiddenError } from 'apollo-server-express';
+import ConnectionArgs from '../common/connection-args';
+import { connectionFromArraySlice } from 'graphql-relay';
 
 const pubSub = new PubSub();
 
@@ -26,16 +28,28 @@ export class TodoResolver {
     private readonly authService: AuthService,
   ) {}
 
-  @Query(() => [Todo])
+  @Query(() => TodoResponse)
   @UseGuards(GqlAuthGuard)
   async todos(
     @CurrentUser() currentUser: User,
-    @Args('todoQueryArgs', { nullable: true }) todoQueryArgs?: TodoQueryArgs,
-  ) {
-    return this.todoService.findAll({
+    @Args() connectionArgs: ConnectionArgs,
+    @Args() todoQueryArgs?: TodoQueryArgs,
+  ): Promise<TodoResponse> {
+    const { limit, offset } = connectionArgs.pagingParams();
+
+    const result = await this.todoService.findAll({
       todoQueryArgs: todoQueryArgs,
       user: currentUser,
+      limit,
+      offset,
     });
+
+    const page = connectionFromArraySlice(result, connectionArgs, {
+      arrayLength: result.length,
+      sliceStart: offset || 0,
+    });
+
+    return { page, pageData: { count: result.length, limit, offset } };
   }
 
   @Mutation(() => Todo)
