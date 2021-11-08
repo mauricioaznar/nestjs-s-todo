@@ -6,14 +6,16 @@
 
 ### Very important
 
-* create MauCheckInput
+* pagination mechanism
+  * [Cursor pagination graphql mongodb](https://slingshotlabs.io/blog/cursor-pagination-graphql-mongodb/)
+* create MauCheckInput 
+
 
 ### Normal flow
 
 * filter by date
 * order by date
 * change layout to cards
-* pagination mechanism
 * toaster when todo query fails
 
 ### Not so important

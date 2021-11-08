@@ -31,25 +31,27 @@ export class TodoResolver {
   @Query(() => TodoResponse)
   @UseGuards(GqlAuthGuard)
   async todos(
-    @CurrentUser() currentUser: User,
+    @CurrentUser() user: User,
     @Args() connectionArgs: ConnectionArgs,
     @Args() todoQueryArgs?: TodoQueryArgs,
   ): Promise<TodoResponse> {
     const { limit, offset } = connectionArgs.pagingParams();
 
-    const result = await this.todoService.findAll({
-      todoQueryArgs: todoQueryArgs,
-      user: currentUser,
+    console.log(limit, offset);
+
+    const { todos, count } = await this.todoService.findAll({
+      todoQueryArgs,
+      user,
       limit,
       offset,
     });
 
-    const page = connectionFromArraySlice(result, connectionArgs, {
-      arrayLength: result.length,
+    const page = connectionFromArraySlice(todos, connectionArgs, {
+      arrayLength: todos.length,
       sliceStart: offset || 0,
     });
 
-    return { page, pageData: { count: result.length, limit, offset } };
+    return { page, pageData: { count, limit, offset } };
   }
 
   @Mutation(() => Todo)

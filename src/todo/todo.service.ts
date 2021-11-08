@@ -18,21 +18,21 @@ export class TodoService {
     todoQueryArgs?: TodoQueryArgs;
     limit?: number;
     offset?: number;
-  }): Promise<Todo[]> {
+  }): Promise<{ todos: Todo[]; count: number }> {
     const { user, todoQueryArgs, limit, offset } = options;
-    const query = this.todoModel.find({
+    const filter = {
       archived: todoQueryArgs?.archived,
-    });
+    };
 
-    if (limit) {
-      query.limit(limit);
-    }
+    const query = this.todoModel.find(filter);
 
-    if (offset) {
-      query.skip(offset);
-    }
+    const todos = await query.exec();
+    const count = await this.todoModel.countDocuments(filter);
 
-    return query.exec();
+    return {
+      todos,
+      count,
+    };
 
     // user: options.user._id,
   }

@@ -2,12 +2,12 @@ import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export default class PageData {
-  @Field()
+  @Field({ nullable: true })
   public count: number;
 
-  @Field()
+  @Field({ nullable: true })
   public limit: number;
 
-  @Field()
+  @Field({ nullable: true })
   public offset: number;
 }
