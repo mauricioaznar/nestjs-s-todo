@@ -15,6 +15,7 @@
 
 ### Improvements
 
+* remember pagination on react
 * filter by date
 * change layout to cards
 * code organization
