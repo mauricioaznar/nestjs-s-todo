@@ -6,8 +6,6 @@
 
 ### Very important
 
-* pagination mechanism
-  * [Cursor pagination graphql mongodb](https://slingshotlabs.io/blog/cursor-pagination-graphql-mongodb/)
 * create MauCheckInput 
 
 
@@ -29,7 +27,12 @@
 
 ### Recent
 
-### < 06/11/2021
+
+### < 08/11/2021
+
+* pagination mechanism
+  * [Cursor pagination graphql mongodb](https://slingshotlabs.io/blog/cursor-pagination-graphql-mongodb/)
+
 
 ### < 05/11/2021 
 
