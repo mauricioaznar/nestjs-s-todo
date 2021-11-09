@@ -37,8 +37,6 @@ export class TodoResolver {
   ): Promise<TodoResponse> {
     const { limit, offset } = connectionArgs.pagingParams();
 
-    console.log(limit, offset);
-
     const { todos, count } = await this.todoService.findAll({
       todoQueryArgs,
       user,
@@ -47,8 +45,8 @@ export class TodoResolver {
     });
 
     const page = connectionFromArraySlice(todos, connectionArgs, {
-      arrayLength: todos.length,
-      sliceStart: offset || 0,
+      arrayLength: count,
+      sliceStart: offset,
     });
 
     return { page, pageData: { count, limit, offset } };

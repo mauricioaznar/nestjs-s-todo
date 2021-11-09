@@ -26,6 +26,14 @@ export class TodoService {
 
     const query = this.todoModel.find(filter);
 
+    if (limit) {
+      query.limit(limit);
+    }
+
+    if (offset) {
+      query.skip(offset);
+    }
+
     const todos = await query.exec();
     const count = await this.todoModel.countDocuments(filter);
 
