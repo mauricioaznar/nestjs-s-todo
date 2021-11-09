@@ -36,6 +36,9 @@ export class TodoBase {
 export class TodoQueryArgs {
   @Field({ nullable: true })
   archived?: boolean;
+
+  @Field({ nullable: true })
+  due?: string;
 }
 
 @InputType('TodoInput')

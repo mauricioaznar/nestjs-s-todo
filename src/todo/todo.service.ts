@@ -20,9 +20,15 @@ export class TodoService {
     offset?: number;
   }): Promise<{ todos: Todo[]; count: number }> {
     const { user, todoQueryArgs, limit, offset } = options;
+
     const filter = {
       archived: todoQueryArgs?.archived,
+      due: todoQueryArgs?.due,
     };
+
+    if (!todoQueryArgs?.due) {
+      delete filter.due;
+    }
 
     const query = this.todoModel.find(filter);
 

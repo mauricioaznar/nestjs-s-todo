@@ -7,6 +7,8 @@
 ### Very important
 
 * order by _id
+* remember pagination on react
+* filter by date
 
 
 ### Normal flow
@@ -15,14 +17,14 @@
 
 ### Improvements
 
-* remember pagination on react
-* filter by date
+* improve mongoose filtering
 * change layout to cards
 * code organization
 * Text field custom rules
   * email
   * telephone
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
+* 
 
 
 
@@ -32,7 +34,7 @@
 
 
 
-
+ 
 
 
 
