@@ -6,32 +6,51 @@
 
 ### Very important
 
-* create MauCheckInput 
+* order by _id
 
 
 ### Normal flow
 
+
+
+### Improvements
+
 * filter by date
-* order by date
 * change layout to cards
-* toaster when todo query fails
-
-### Not so important
-
 * code organization
+* Text field custom rules
+  * email
+  * telephone
+* animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
-## Done 
 
-* archive property on todos
-* query by archive
 
-### Recent
 
+
+
+
+
+
+
+
+
+
+## Done
+
+### < 09/11/2021
+
+* create MauCheckInput
+* toaster when todo query fails
 
 ### < 08/11/2021
 
 * pagination mechanism
   * [Cursor pagination graphql mongodb](https://slingshotlabs.io/blog/cursor-pagination-graphql-mongodb/)
+
+### < 07/11/2021
+
+* archive property on todos
+* query by archive
 
 
 ### < 05/11/2021 
