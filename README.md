@@ -6,7 +6,6 @@
 
 ### Very important
 
-* order by _id
 
 
 
@@ -43,6 +42,7 @@
 ### < 10/11/2021
 
 * remember pagination on react
+* order by _id 
 
 ### < 09/11/2021
 
