@@ -40,6 +40,8 @@ export class TodoService {
       query.skip(offset);
     }
 
+    query.sort({ _id: -1 });
+
     const todos = await query.exec();
     const count = await this.todoModel.countDocuments(filter);
 

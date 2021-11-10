@@ -7,8 +7,8 @@
 ### Very important
 
 * order by _id
-* remember pagination on react
-* filter by date
+
+
 
 
 ### Normal flow
@@ -40,8 +40,13 @@
 
 ## Done
 
+### < 10/11/2021
+
+* remember pagination on react
+
 ### < 09/11/2021
 
+* filter by date
 * create MauCheckInput
 * toaster when todo query fails
 
