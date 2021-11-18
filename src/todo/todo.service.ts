@@ -23,6 +23,7 @@ export class TodoService {
 
     const filter = {
       archived: todoQueryArgs?.archived,
+      completed: todoQueryArgs?.completed,
       due: todoQueryArgs?.due,
     };
 

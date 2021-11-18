@@ -38,6 +38,9 @@ export class TodoQueryArgs {
   archived?: boolean;
 
   @Field({ nullable: true })
+  completed?: boolean;
+
+  @Field({ nullable: true })
   due?: string;
 }
 
