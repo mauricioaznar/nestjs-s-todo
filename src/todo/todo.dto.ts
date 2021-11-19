@@ -6,6 +6,18 @@ import { UserDocument } from '../auth/auth.schema';
 import { MinLength } from 'class-validator';
 import relayTypes from '../common/relay.types';
 
+@ObjectType()
+@InputType('TodoItemInput', { isAbstract: true })
+export class TodoItem {
+  @Field()
+  @Prop()
+  description: string;
+
+  @Field()
+  @Prop()
+  completed: boolean;
+}
+
 @ObjectType({ isAbstract: true })
 @InputType({ isAbstract: true })
 export class TodoBase {
@@ -30,6 +42,10 @@ export class TodoBase {
   @Field()
   @Prop()
   archived: boolean;
+
+  @Prop([TodoItem])
+  @Field(() => [TodoItem])
+  items: TodoItem[];
 }
 
 @ArgsType()

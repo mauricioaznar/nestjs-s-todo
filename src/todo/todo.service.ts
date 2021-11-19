@@ -59,11 +59,13 @@ export class TodoService {
       ...createTodoDto,
       user: user._id,
     };
+    console.log(todoData);
     const createdTodo = new this.todoModel(todoData);
     return createdTodo.save();
   }
 
   async update(id: string, updateTodoDto: TodoInput): Promise<Todo> {
+    console.log(updateTodoDto);
     return this.todoModel.findByIdAndUpdate(id, updateTodoDto);
   }
 

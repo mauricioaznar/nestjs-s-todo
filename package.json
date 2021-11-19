@@ -17,10 +17,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "migrate:up:dev": "env-cmd -f ./.env.develop migrate-mongo up",
-    "migrate:status:dev": "env-cmd -f ./.env.develop migrate-mongo status",
-    "migrate:up:prod": "env-cmd -f ./.env migrate-mongo up",
-    "migrate:status:prod": "env-cmd -f ./.env migrate-mongo status"
+    "dev:migrate": "env-cmd -f ./.env.develop migrate-mongo up",
+    "dev:status": "env-cmd -f ./.env.develop migrate-mongo status",
+    "prod:migrate": "env-cmd -f ./.env migrate-mongo up",
+    "prod:status": "env-cmd -f ./.env migrate-mongo status"
   },
   "author": "",
   "license": "ISC",
