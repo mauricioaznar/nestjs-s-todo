@@ -4,7 +4,7 @@ import { CatModule } from './cat/cat.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { TodoModule } from './todo/todo.module';
-import { ApolloError } from 'apollo-server-express';
+import { ApolloError, ValidationError } from 'apollo-server-express';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
 
 if (!process.env.MONGO_DATABASE) {
@@ -36,13 +36,19 @@ if (!process.env.MONGO_URL) {
         if (error instanceof GraphQLError) {
           const graphQLFormattedError: GraphQLFormattedError = {
             message:
-              error.extensions?.exception?.response?.message || error.message,
+              error.extensions?.exception?.response?.messag || error.message,
           };
           return graphQLFormattedError;
         } else if (error instanceof ApolloError) {
-          return {
-            message: error.extensions.response.message,
-          };
+          if (!!error?.extensions?.response?.message) {
+            return {
+              message: error.extensions.response.message,
+            };
+          } else {
+            return {
+              message: error.message,
+            };
+          }
         }
       },
       context: ({ req, connection }) => {

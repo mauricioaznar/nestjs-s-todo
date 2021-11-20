@@ -3,14 +3,16 @@ import { Prop, Schema } from '@nestjs/mongoose';
 import { User } from '../auth/auth.dto';
 import * as mongoose from 'mongoose';
 import { UserDocument } from '../auth/auth.schema';
-import { MinLength } from 'class-validator';
+import { IsArray, MinLength, ValidateNested } from 'class-validator';
 import relayTypes from '../common/relay.types';
+import { Type } from 'class-transformer';
 
 @ObjectType()
 @InputType('TodoItemInput', { isAbstract: true })
 export class TodoItem {
   @Field()
   @Prop()
+  @MinLength(10)
   description: string;
 
   @Field()
@@ -45,6 +47,9 @@ export class TodoBase {
 
   @Prop([TodoItem])
   @Field(() => [TodoItem])
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => TodoItem)
   items: TodoItem[];
 }
 
