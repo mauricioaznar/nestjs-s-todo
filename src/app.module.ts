@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { TodoModule } from './todo/todo.module';
 import { ApolloError, ValidationError } from 'apollo-server-express';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
+import { IsYearMonth } from './common/class-validator/is-year-month';
 
 if (!process.env.MONGO_DATABASE) {
   throw new Error('process.env.MONGO_DATABASE is not defined');
@@ -61,6 +62,7 @@ if (!process.env.MONGO_URL) {
     CatModule,
     AuthModule,
     TodoModule,
+    IsYearMonth,
   ],
 })
 export class AppModule {}

@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { FilterTodoColumn, Todo, TodoInput, TodoQueryArgs } from './todo.dto';
+import { Todo, TodoInput, TodoQueryArgs } from './todo.dto';
 import { TodoDocument } from './todo.schema';
 import { User } from '../auth/auth.dto';
+import moment from 'moment';
 
 @Injectable()
 export class TodoService {
@@ -24,10 +25,30 @@ export class TodoService {
     const filter = {
       archived: todoQueryArgs?.archived,
       completed: todoQueryArgs?.completed,
-      due: todoQueryArgs?.due,
+      due: undefined,
     };
 
-    if (!todoQueryArgs?.due) {
+    if (todoQueryArgs?.due) {
+      const split = todoQueryArgs.due.split('-');
+      const year = Number(split[0]);
+      const month = Number(split[1]);
+      const gte = moment()
+        .year(year)
+        .month(month - 1)
+        .startOf('month')
+        .format('YYYY-MM-DD');
+      console.log();
+      const lt = moment()
+        .year(year)
+        .month(month - 1)
+        .add(1, 'month')
+        .startOf('month')
+        .format('YYYY-MM-DD');
+      filter.due = {
+        $gte: gte,
+        $lt: lt,
+      };
+    } else {
       delete filter.due;
     }
 
@@ -40,8 +61,6 @@ export class TodoService {
     if (offset) {
       query.skip(offset);
     }
-
-    console.log(todoQueryArgs.order, todoQueryArgs.orderBy);
 
     if (todoQueryArgs.order && todoQueryArgs.orderBy) {
       query.sort({
