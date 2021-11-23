@@ -49,10 +49,6 @@ export class TodoBase {
 
   @Field()
   @Prop()
-  completed: boolean;
-
-  @Field()
-  @Prop()
   locked: boolean;
 
   @Field()

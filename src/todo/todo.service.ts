@@ -24,7 +24,7 @@ export class TodoService {
 
     const filter = {
       archived: todoQueryArgs?.archived,
-      completed: todoQueryArgs?.completed,
+      items: undefined,
       due: undefined,
     };
 
@@ -37,7 +37,6 @@ export class TodoService {
         .month(month - 1)
         .startOf('month')
         .format('YYYY-MM-DD');
-      console.log();
       const lt = moment()
         .year(year)
         .month(month - 1)
@@ -50,6 +49,29 @@ export class TodoService {
       };
     } else {
       delete filter.due;
+    }
+
+    if (
+      todoQueryArgs?.completed === true ||
+      todoQueryArgs?.completed === false
+    ) {
+      if (todoQueryArgs?.completed === true) {
+        filter['items'] = {
+          $not: {
+            $elemMatch: {
+              completed: false,
+            },
+          },
+        };
+      } else if (todoQueryArgs?.completed === false) {
+        filter['items'] = {
+          $elemMatch: {
+            completed: false,
+          },
+        };
+      }
+    } else {
+      delete filter['items'];
     }
 
     const query = this.todoModel.find(filter);
