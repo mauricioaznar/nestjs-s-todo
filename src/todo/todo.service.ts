@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Todo, TodoInput, TodoQueryArgs } from './todo.dto';
+import { FilterTodoColumn, Todo, TodoInput, TodoQueryArgs } from './todo.dto';
 import { TodoDocument } from './todo.schema';
 import { User } from '../auth/auth.dto';
 
@@ -41,7 +41,15 @@ export class TodoService {
       query.skip(offset);
     }
 
-    query.sort({ _id: -1 });
+    console.log(todoQueryArgs.order, todoQueryArgs.orderBy);
+
+    if (todoQueryArgs.order && todoQueryArgs.orderBy) {
+      query.sort({
+        [todoQueryArgs.orderBy]: todoQueryArgs.order === 'asc' ? 1 : -1,
+      });
+    } else {
+      query.sort({ _id: -1 });
+    }
 
     const todos = await query.exec();
     const count = await this.todoModel.countDocuments(filter);

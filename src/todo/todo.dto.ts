@@ -1,4 +1,10 @@
-import { ObjectType, Field, InputType, ArgsType } from '@nestjs/graphql';
+import {
+  ObjectType,
+  Field,
+  InputType,
+  ArgsType,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { User } from '../auth/auth.dto';
 import * as mongoose from 'mongoose';
@@ -6,6 +12,7 @@ import { UserDocument } from '../auth/auth.schema';
 import { IsArray, MinLength, ValidateNested } from 'class-validator';
 import relayTypes from '../common/relay.types';
 import { Type } from 'class-transformer';
+import { ColumnOrder } from '../common/column-order';
 
 @ObjectType()
 @InputType('TodoItemInput', { isAbstract: true })
@@ -53,6 +60,12 @@ export class TodoBase {
   items: TodoItem[];
 }
 
+export enum FilterTodoColumn {
+  description = 'description',
+  due = 'due',
+  _id = '_id',
+}
+
 @ArgsType()
 export class TodoQueryArgs {
   @Field({ nullable: true })
@@ -63,6 +76,12 @@ export class TodoQueryArgs {
 
   @Field({ nullable: true })
   due?: string;
+
+  @Field(() => FilterTodoColumn, { nullable: true })
+  orderBy?: FilterTodoColumn;
+
+  @Field(() => ColumnOrder, { nullable: true })
+  order?: ColumnOrder;
 }
 
 @InputType('TodoInput')
@@ -78,6 +97,8 @@ export class Todo extends TodoBase {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: string | mongoose.Schema.Types.ObjectId | UserDocument;
 }
+
+registerEnumType(FilterTodoColumn, { name: 'FilterTodoColumn' });
 
 @ObjectType()
 export default class TodoResponse extends relayTypes<Todo>(Todo) {}
