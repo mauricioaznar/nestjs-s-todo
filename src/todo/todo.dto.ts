@@ -27,7 +27,7 @@ import { IsYearMonth } from '../common/class-validator/is-year-month';
 export class TodoItem {
   @Field()
   @Prop()
-  @MinLength(10)
+  @MinLength(4)
   description: string;
 
   @Field()

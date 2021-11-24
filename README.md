@@ -4,19 +4,8 @@
 
 ## TODO
 
-### Very important
-
-
-
-
-
-### Normal flow
-
-
-
 ### Improvements
 
-* improve mongoose filtering
 * change layout to cards
 * code organization
 * Text field custom rules
@@ -38,6 +27,10 @@
 
 
 ## Done
+
+### < 24/11/2021
+
+* improve mongoose filtering
 
 ### < 10/11/2021
 

@@ -7,17 +7,19 @@ import {
   Resolver,
   Subscription,
 } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+import { ForbiddenError } from 'apollo-server-express';
+import { connectionFromArraySlice } from 'graphql-relay';
+import { PubSub } from 'graphql-subscriptions';
+
+// local
 import { TodoService } from './todo.service';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
 import TodoResponse, { Todo, TodoInput, TodoQueryArgs } from './todo.dto';
 import { User } from '../auth/auth.dto';
 import { AuthService } from '../auth/auth.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { PubSub } from 'graphql-subscriptions';
-import { ForbiddenError } from 'apollo-server-express';
 import ConnectionArgs from '../common/connection-args';
-import { connectionFromArraySlice } from 'graphql-relay';
 
 const pubSub = new PubSub();
 
