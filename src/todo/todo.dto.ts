@@ -10,6 +10,7 @@ import { User } from '../auth/auth.dto';
 import * as mongoose from 'mongoose';
 import { UserDocument } from '../auth/auth.schema';
 import {
+  ArrayMinSize,
   IsArray,
   IsOptional,
   MinLength,
@@ -59,6 +60,7 @@ export class TodoBase {
   @Field(() => [TodoItem])
   @IsArray()
   @ValidateNested({ each: true })
+  @ArrayMinSize(1)
   @Type(() => TodoItem)
   items: TodoItem[];
 }
@@ -97,6 +99,18 @@ export class TodoInput extends TodoBase {}
 export class Todo extends TodoBase {
   @Field({ nullable: false })
   readonly _id: string;
+
+  @Field({ nullable: true })
+  @Prop({
+    default: function (todo) {
+      const completed = todo.items.reduce((acc, curr) => {
+        return curr.completed ? acc + 1 : acc;
+      }, 0);
+      const length = todo.items.length;
+      return `${completed}/${length}`;
+    },
+  })
+  readonly completed_percentage: string;
 
   @Field(() => User, { nullable: true })
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
