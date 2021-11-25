@@ -4,6 +4,11 @@
 
 ## TODO
 
+### New functionality
+
+* New coloring schema
+
+
 ### Improvements
 
 * change layout to cards
@@ -11,18 +16,19 @@
 * Text field custom rules
   * email
   * telephone
-* animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 * 
 
 
+### Bugs
+
+* todos filtering by year-month is not filtering correctly when todo is first day of the month.
+* deleting a todo: when having multiple pages and when the last todo on the page is being deleted, breaks pagination.
 
 
+### Issues
 
-
-
-
-
- 
+* errors on console [month picker bug](https://github.com/mui-org/material-ui/issues/28352)
+* animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 
 
@@ -31,6 +37,7 @@
 ### < 24/11/2021
 
 * improve mongoose filtering
+* date picker wrapper
 
 ### < 10/11/2021
 
