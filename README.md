@@ -6,26 +6,27 @@
 
 ### Currently implementing
 
-* code organization
-  * organize theming functionality (separate logic inside one file)
-* add icons to themes
+#### new features
 
+* filtering by public all and user todos
+* Text field custom rules
+  * email
+  * telephone
 
+#### bugs
+
+* todos filtering by year-month is not filtering correctly when todo is first day of the month.
 
 
 ### Improvements
 
 * change layout to cards
-* Text field custom rules
-  * email
-  * telephone
 *
 
 
 
 ### Bugs
 
-* todos filtering by year-month is not filtering correctly when todo is first day of the month.
 * deleting a todo: when having multiple pages and when the last todo on the page is being deleted, breaks pagination.
 
 
@@ -37,6 +38,13 @@
 
 
 ## Done
+
+
+### < 26/11/2021
+
+* code organization
+  * organize theming functionality (separate logic inside one file)
+* add icons to themes
 
 ### < 25/11/2021
 

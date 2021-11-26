@@ -5,7 +5,7 @@ import {
   ArgsType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { User } from '../auth/auth.dto';
 import * as mongoose from 'mongoose';
 import { UserDocument } from '../auth/auth.schema';
@@ -21,6 +21,7 @@ import relayTypes from '../common/relay.types';
 import { Type } from 'class-transformer';
 import { ColumnOrder } from '../common/column-order';
 import { IsYearMonth } from '../common/class-validator/is-year-month';
+import { Document } from 'mongoose';
 
 @ObjectType()
 @InputType('TodoItemInput', { isAbstract: true })
@@ -95,18 +96,22 @@ export class TodoQueryArgs {
 export class TodoInput extends TodoBase {}
 
 @ObjectType('Todo')
-@Schema()
+@Schema({
+  toJSON: {
+    getters: true,
+  },
+})
 export class Todo extends TodoBase {
   @Field({ nullable: false })
   readonly _id: string;
 
   @Field({ nullable: true })
   @Prop({
-    default: function (todo) {
-      const completed = todo.items.reduce((acc, curr) => {
+    get: function () {
+      const completed = this.items.reduce((acc, curr) => {
         return curr.completed ? acc + 1 : acc;
       }, 0);
-      const length = todo.items.length;
+      const length = this.items.length;
       return `${completed}/${length}`;
     },
   })
