@@ -4,19 +4,23 @@
 
 ## TODO
 
-### New functionality
+### Currently implementing
 
-* New coloring schema
+* code organization
+  * organize theming functionality (separate logic inside one file)
+* add icons to themes
+
+
 
 
 ### Improvements
 
 * change layout to cards
-* code organization
 * Text field custom rules
   * email
   * telephone
-* 
+*
+
 
 
 ### Bugs
@@ -33,6 +37,11 @@
 
 
 ## Done
+
+### < 25/11/2021
+
+* New coloring schema
+
 
 ### < 24/11/2021
 
