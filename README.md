@@ -6,28 +6,16 @@
 
 ### Currently implementing
 
-#### new features
-
-* filtering by public all and user todos
 * Text field custom rules
   * email
   * telephone
-
-#### bugs
-
-* todos filtering by year-month is not filtering correctly when todo is first day of the month.
-
+* Array item need to display an error when no item has been specified.
 
 ### Improvements
 
 * change layout to cards
-*
-
-
-
-### Bugs
-
-* deleting a todo: when having multiple pages and when the last todo on the page is being deleted, breaks pagination.
+* filtering by public all and user todos
+* (bug) deleting a todo: when having multiple pages and when the last todo on the page is being deleted, breaks pagination.
 
 
 ### Issues
@@ -35,21 +23,18 @@
 * errors on console [month picker bug](https://github.com/mui-org/material-ui/issues/28352)
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
-
-
 ## Done
-
 
 ### < 26/11/2021
 
 * code organization
-  * organize theming functionality (separate logic inside one file)
+    * organize theming functionality (separate logic inside one file)
 * add icons to themes
+* (bug) todos filtering by year-month is not filtering correctly when todo is first day of the month.
 
 ### < 25/11/2021
 
 * New coloring schema
-
 
 ### < 24/11/2021
 
@@ -59,7 +44,7 @@
 ### < 10/11/2021
 
 * remember pagination on react
-* order by _id 
+* order by _id
 
 ### < 09/11/2021
 
@@ -70,15 +55,14 @@
 ### < 08/11/2021
 
 * pagination mechanism
-  * [Cursor pagination graphql mongodb](https://slingshotlabs.io/blog/cursor-pagination-graphql-mongodb/)
+    * [Cursor pagination graphql mongodb](https://slingshotlabs.io/blog/cursor-pagination-graphql-mongodb/)
 
 ### < 07/11/2021
 
 * archive property on todos
 * query by archive
 
-
-### < 05/11/2021 
+### < 05/11/2021
 
 * lock property on todos
 * dark mode

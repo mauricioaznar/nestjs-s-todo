@@ -58,6 +58,9 @@ if (!process.env.MONGO_URL) {
     }),
     MongooseModule.forRoot(
       `${process.env.MONGO_URL}/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`,
+      {
+        ignoreUndefined: true,
+      },
     ),
     CatModule,
     AuthModule,

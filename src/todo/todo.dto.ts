@@ -1,11 +1,11 @@
 import {
-  ObjectType,
+  ArgsType,
   Field,
   InputType,
-  ArgsType,
+  ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema } from '@nestjs/mongoose';
 import { User } from '../auth/auth.dto';
 import * as mongoose from 'mongoose';
 import { UserDocument } from '../auth/auth.schema';
@@ -21,7 +21,6 @@ import relayTypes from '../common/relay.types';
 import { Type } from 'class-transformer';
 import { ColumnOrder } from '../common/column-order';
 import { IsYearMonth } from '../common/class-validator/is-year-month';
-import { Document } from 'mongoose';
 
 @ObjectType()
 @InputType('TodoItemInput', { isAbstract: true })

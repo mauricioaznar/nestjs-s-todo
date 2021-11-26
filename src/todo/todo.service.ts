@@ -23,8 +23,9 @@ export class TodoService {
     const { user, todoQueryArgs, limit, offset } = options;
 
     const filter = {
-      archived: todoQueryArgs?.archived,
+      archived: undefined,
       items: undefined,
+      user: user._id,
       due: undefined,
     };
 
@@ -72,6 +73,12 @@ export class TodoService {
       }
     } else {
       delete filter['items'];
+    }
+
+    if (todoQueryArgs?.archived === true || todoQueryArgs?.archived === false) {
+      filter['archived'] = todoQueryArgs?.archived;
+    } else {
+      delete filter['archived'];
     }
 
     const query = this.todoModel.find(filter);
