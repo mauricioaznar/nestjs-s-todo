@@ -6,7 +6,8 @@
 
 ### Currently implementing
 
-* menu with filter properties
+* improve menu
+  * dry code
 * improve todo cards
   * dry code
   * beautify card layout
@@ -30,6 +31,7 @@
 
 ### < 26/11/2021
 
+* menu with filter properties
 * add layout to cards
 * code organization
     * organize theming functionality (separate logic inside one file)
