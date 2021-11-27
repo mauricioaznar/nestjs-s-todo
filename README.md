@@ -6,6 +6,10 @@
 
 ### Currently implementing
 
+* menu with filter properties
+* improve todo cards
+  * dry code
+  * beautify card layout
 * Text field custom rules
   * email
   * telephone
@@ -13,7 +17,6 @@
 
 ### Improvements
 
-* change layout to cards
 * filtering by public all and user todos
 * (bug) deleting a todo: when having multiple pages and when the last todo on the page is being deleted, breaks pagination.
 
@@ -27,6 +30,7 @@
 
 ### < 26/11/2021
 
+* add layout to cards
 * code organization
     * organize theming functionality (separate logic inside one file)
 * add icons to themes
