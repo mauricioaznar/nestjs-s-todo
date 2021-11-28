@@ -6,13 +6,8 @@
 
 ### Currently implementing
 
-* improve menu
-  * dry code
-* improve todo cards
-  * dry code
-  * beautify card layout
+* refactor custom rules on MauTextField
 * Text field custom rules
-  * email
   * telephone
 * Array item need to display an error when no item has been specified.
 
@@ -28,6 +23,17 @@
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 ## Done
+
+### < 27/11/2021
+
+* Text field custom rules
+  * email
+* improve menu
+  * dry code
+* improve todo cards
+  * dry code
+  * beautify card layout
+
 
 ### < 26/11/2021
 
