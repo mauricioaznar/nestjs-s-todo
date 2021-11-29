@@ -82,4 +82,18 @@ export class AuthService {
     });
     return createdUser.save();
   }
+
+  async update(
+    _id: string | mongoose.Schema.Types.ObjectId | UserDocument,
+    userInput: UserInput,
+  ): Promise<User> {
+    const saltOrRounds = 10;
+    const password = await bcrypt.hash(userInput.password, saltOrRounds);
+    return this.userModel.findOneAndUpdate(
+      {
+        _id: _id,
+      },
+      { ...userInput, password },
+    );
+  }
 }

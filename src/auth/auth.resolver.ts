@@ -5,6 +5,7 @@ import { AccessToken, User, UserInput } from './auth.dto';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
+import { ForbiddenError } from 'apollo-server-express';
 
 @Resolver()
 export class AuthResolver {
@@ -28,8 +29,23 @@ export class AuthResolver {
   }
 
   @Mutation(() => User)
+  @UseGuards(GqlAuthGuard)
   async createUser(@Args('userInput') input: UserInput) {
     return this.authService.create(input);
+  }
+
+  @Mutation(() => User)
+  @UseGuards(GqlAuthGuard)
+  async updateUser(
+    @Args('_id') id: string,
+    @Args('userInput') input: UserInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    const oldUser = await this.authService.findOneByUser({ user: id });
+    if (oldUser._id.toString() !== currentUser._id) {
+      return new ForbiddenError('Your user is not allowed to delete this post');
+    }
+    return this.authService.update(id, input);
   }
 
   @Query(() => [User])

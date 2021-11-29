@@ -6,6 +6,9 @@
 
 ### Currently implementing
 
+
+* user admin
+* user edit and delete when user admin is true
 * refactor custom rules on MauTextField
 * Text field custom rules
   * telephone
@@ -13,6 +16,7 @@
 
 ### Improvements
 
+* todo check with react router typescript (history.location.state?.todo as GetTodosQuery ["todos"] [number] || undefined)
 * filtering by public all and user todos
 * (bug) deleting a todo: when having multiple pages and when the last todo on the page is being deleted, breaks pagination.
 
