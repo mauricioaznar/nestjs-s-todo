@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { AccessToken, User, UserInput } from './auth.dto';
+import { AccessToken, LoginInput, User, UserInput } from './auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model, ObjectId } from 'mongoose';
 import { UserDocument } from './auth.schema';
@@ -27,12 +27,12 @@ export class AuthService {
     return user;
   }
 
-  async login(userInput: UserInput): Promise<AccessToken> {
+  async login(userInput: LoginInput): Promise<AccessToken> {
     const res = await this.validateUser(userInput.username, userInput.password);
     if (res) {
-      const payload = { username: userInput.username, _id: res._id };
+      const { password, ...rest } = res;
       return {
-        accessToken: this.jwtService.sign(payload),
+        accessToken: this.jwtService.sign({ ...rest._doc }),
       };
     } else {
       return null;

@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { AuthenticationError } from 'apollo-server-core';
-import { AccessToken, User, UserInput } from './auth.dto';
+import { AccessToken, LoginInput, User, UserInput } from './auth.dto';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
@@ -12,7 +12,7 @@ export class AuthResolver {
   constructor(private authService: AuthService) {}
 
   @Mutation(() => AccessToken)
-  async login(@Args('userInput') input: UserInput) {
+  async login(@Args('loginInput') input: LoginInput) {
     const result = await this.authService.login(input);
     if (result) return result;
     throw new AuthenticationError(
@@ -30,7 +30,13 @@ export class AuthResolver {
 
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard)
-  async createUser(@Args('userInput') input: UserInput) {
+  async createUser(
+    @Args('userInput') input: UserInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    if (!currentUser.admin) {
+      return new ForbiddenError('Not allowed');
+    }
     return this.authService.create(input);
   }
 
@@ -42,10 +48,13 @@ export class AuthResolver {
     @CurrentUser() currentUser: User,
   ) {
     const oldUser = await this.authService.findOneByUser({ user: id });
-    if (oldUser._id.toString() !== currentUser._id) {
-      return new ForbiddenError('Your user is not allowed to delete this post');
+    if (oldUser._id.toString() !== currentUser._id && !currentUser.admin) {
+      return new ForbiddenError('Not allowed');
     }
-    return this.authService.update(id, input);
+    return this.authService.update(id, {
+      ...input,
+      admin: currentUser.admin ? input.admin : false,
+    });
   }
 
   @Query(() => [User])

@@ -10,6 +10,19 @@ export class UserBase {
 
   @Prop()
   password: string;
+
+  @Prop()
+  @Field()
+  admin: boolean;
+}
+
+@InputType('loginInput')
+export class LoginInput {
+  @Field()
+  password: string;
+
+  @Field()
+  username: string;
 }
 
 @InputType('userInput')
