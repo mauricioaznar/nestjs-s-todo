@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { GraphQLUpload, graphqlUploadExpress } from 'graphql-upload';
 import { GraphQLModule } from '@nestjs/graphql';
 import { CatModule } from './cat/cat.module';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -68,4 +69,8 @@ if (!process.env.MONGO_URL) {
     IsYearMonth,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(graphqlUploadExpress()).forRoutes('graphql');
+  }
+}

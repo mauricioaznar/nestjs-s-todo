@@ -6,6 +6,8 @@ import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { ForbiddenError } from 'apollo-server-express';
+import { FileUpload, GraphQLUpload } from 'graphql-upload';
+import { createWriteStream } from 'fs';
 
 @Resolver()
 export class AuthResolver {
@@ -26,6 +28,23 @@ export class AuthResolver {
     return this.authService.findOneByUsername({
       username: currentUser.username,
     });
+  }
+
+  @Mutation(() => Boolean)
+  @UseGuards(GqlAuthGuard)
+  async uploadFile(
+    @Args({ name: 'file', type: () => GraphQLUpload })
+    file: FileUpload,
+  ) {
+    const { filename, mimetype, encoding, createReadStream } = file;
+    console.log('attachment:', filename, mimetype, encoding);
+
+    return new Promise((resolve, reject) =>
+      createReadStream()
+        .pipe(createWriteStream(`./uploads/${filename}`))
+        .on('finish', () => resolve(true))
+        .on('error', (error) => reject(error)),
+    );
   }
 
   @Mutation(() => User)
