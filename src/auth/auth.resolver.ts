@@ -35,13 +35,21 @@ export class AuthResolver {
   async uploadFile(
     @Args({ name: 'file', type: () => GraphQLUpload })
     file: FileUpload,
+    @Args('userId') userId: string,
+    @CurrentUser() currentUser: User,
   ) {
     const { filename, mimetype, encoding, createReadStream } = file;
     console.log('attachment:', filename, mimetype, encoding);
 
+    if (userId.toString() !== currentUser._id && !currentUser.admin) {
+      return new ForbiddenError('Not allowed');
+    }
+
+    const extension = filename.split('.')[1];
+
     return new Promise((resolve, reject) =>
       createReadStream()
-        .pipe(createWriteStream(`./uploads/${filename}`))
+        .pipe(createWriteStream(`./uploads/images/${userId}.${extension}`))
         .on('finish', () => resolve(true))
         .on('error', (error) => reject(error)),
     );

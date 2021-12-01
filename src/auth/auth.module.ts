@@ -4,7 +4,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants/constants';
+import { jwtConstants } from '../common/constants/jwt';
 import { AuthResolver } from './auth.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './auth.schema';
@@ -16,7 +16,7 @@ import { User } from './auth.dto';
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '6000s' },
+      signOptions: { expiresIn: jwtConstants.expiresIn },
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy, AuthResolver],
