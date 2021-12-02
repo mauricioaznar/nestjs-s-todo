@@ -9,6 +9,7 @@ import { AuthResolver } from './auth.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './auth.schema';
 import { User } from './auth.dto';
+import { MemoryModule } from '../memory/memory.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { User } from './auth.dto';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: jwtConstants.expiresIn },
     }),
+    MemoryModule,
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy, AuthResolver],
   exports: [AuthService],

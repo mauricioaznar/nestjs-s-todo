@@ -10,19 +10,22 @@ import {
 import { AuthService } from './auth.service';
 import { AuthenticationError } from 'apollo-server-core';
 import { AccessToken, LoginInput, User, UserInput } from './auth.dto';
-import { UseGuards } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { ForbiddenError } from 'apollo-server-express';
 import { FileUpload, GraphQLUpload } from 'graphql-upload';
 import { createWriteStream } from 'fs';
 import { JwtService } from '@nestjs/jwt';
+import { MemoryService } from '../memory/memory.service';
 
 @Resolver(() => User)
+@Injectable()
 export class AuthResolver {
   constructor(
     private authService: AuthService,
     private jwtService: JwtService,
+    private memoryService: MemoryService,
   ) {}
 
   @Mutation(() => AccessToken)
@@ -105,6 +108,7 @@ export class AuthResolver {
   @ResolveField('avatar', () => String)
   async avatar(@Parent() user: User, @Context() ctx): Promise<string> {
     const token = this.jwtService.sign({});
+    console.log(this.memoryService.test());
     return `${ctx.req.headers.origin}/files/${token}/two.jpg`;
   }
 

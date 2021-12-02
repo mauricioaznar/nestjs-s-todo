@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  CacheModule,
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+} from '@nestjs/common';
 import { graphqlUploadExpress } from 'graphql-upload';
 import { GraphQLModule } from '@nestjs/graphql';
 import { CatModule } from './cat/cat.module';
@@ -8,9 +13,8 @@ import { TodoModule } from './todo/todo.module';
 import { ApolloError } from 'apollo-server-express';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { IsYearMonth } from './common/class-validator/is-year-month';
-import { join } from 'path';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { FilesModule } from './files/files.module';
+import { MemoryModule } from './memory/memory.module';
 
 if (!process.env.MONGO_DATABASE) {
   throw new Error('process.env.MONGO_DATABASE is not defined');
@@ -66,13 +70,11 @@ if (!process.env.MONGO_URL) {
         ignoreUndefined: true,
       },
     ),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads'),
-      renderPath: '/images*',
-    }),
+    CacheModule.register({ ttl: 0, isGlobal: true }),
     CatModule,
     AuthModule,
     TodoModule,
+    MemoryModule,
     FilesModule,
     IsYearMonth,
   ],
