@@ -1,4 +1,12 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Context,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { AuthenticationError } from 'apollo-server-core';
 import { AccessToken, LoginInput, User, UserInput } from './auth.dto';
@@ -8,10 +16,14 @@ import { CurrentUser } from './decorators/current-user.decorator';
 import { ForbiddenError } from 'apollo-server-express';
 import { FileUpload, GraphQLUpload } from 'graphql-upload';
 import { createWriteStream } from 'fs';
+import { JwtService } from '@nestjs/jwt';
 
-@Resolver()
+@Resolver(() => User)
 export class AuthResolver {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private jwtService: JwtService,
+  ) {}
 
   @Mutation(() => AccessToken)
   async login(@Args('loginInput') input: LoginInput) {
@@ -39,7 +51,7 @@ export class AuthResolver {
     @CurrentUser() currentUser: User,
   ) {
     const { filename, mimetype, encoding, createReadStream } = file;
-    console.log('attachment:', filename, mimetype, encoding);
+    // console.log('attachment:', filename, mimetype, encoding);
 
     if (userId.toString() !== currentUser._id && !currentUser.admin) {
       return new ForbiddenError('Not allowed');
@@ -86,8 +98,14 @@ export class AuthResolver {
 
   @Query(() => [User])
   @UseGuards(GqlAuthGuard)
-  async users() {
+  async users(@CurrentUser() currentUser: User) {
     return this.authService.findAll();
+  }
+
+  @ResolveField('avatar', () => String)
+  async avatar(@Parent() user: User, @Context() ctx): Promise<string> {
+    const token = this.jwtService.sign({});
+    return `${ctx.req.headers.origin}/files/${token}/two.jpg`;
   }
 
   // // There is no username guard here because if the person has the token, they can be any user

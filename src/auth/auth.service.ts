@@ -31,8 +31,10 @@ export class AuthService {
     const res = await this.validateUser(userInput.username, userInput.password);
     if (res) {
       const { password, ...rest } = res;
+      console.log({ ...rest });
+      console.log(rest);
       return {
-        accessToken: this.jwtService.sign({ ...rest._doc }),
+        accessToken: this.jwtService.sign({ ...rest }),
       };
     } else {
       return null;
@@ -44,9 +46,11 @@ export class AuthService {
   }: {
     username: string;
   }): Promise<UserSchema | undefined> {
-    return this.userModel.findOne({
-      username: username,
-    });
+    return this.userModel
+      .findOne({
+        username: username,
+      })
+      .lean();
   }
 
   async findOneByToken(args: {
@@ -56,13 +60,15 @@ export class AuthService {
   }): Promise<UserSchema | undefined> {
     const token = args.connectionParams.authorization.split(' ')[1];
     const result = this.jwtService.decode(token) as { username: string };
-    return this.userModel.findOne({
-      username: result.username,
-    });
+    return this.userModel
+      .findOne({
+        username: result.username,
+      })
+      .lean();
   }
 
   async findAll(): Promise<User[]> {
-    return this.userModel.find();
+    return this.userModel.find().lean();
   }
 
   async findOneByUser({

@@ -36,6 +36,9 @@ export class UserInput extends UserBase {
 export class User extends UserBase {
   @Field({ nullable: false })
   _id: string;
+
+  @Field(() => String, { nullable: true })
+  avatar: string;
 }
 
 @ObjectType('AccessToken')
