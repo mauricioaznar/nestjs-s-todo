@@ -38,7 +38,8 @@ export class User extends UserBase {
   _id: string;
 
   @Field(() => String, { nullable: true })
-  avatar: string;
+  @Prop()
+  avatar: string | null;
 }
 
 @ObjectType('AccessToken')

@@ -8,6 +8,8 @@
 
 * todo check with react router typescript (history.location.state?.todo as GetTodosQuery ["todos"] [number] || undefined)
 * file upload
+  * delete file if exists
+* username must be unique
 * refactor custom rules on MauTextField
 * Text field custom rules
   * telephone

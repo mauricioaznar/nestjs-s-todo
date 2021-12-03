@@ -1,18 +1,17 @@
 import { Module } from '@nestjs/common';
-import { FilesService } from './files.service';
-import { FilesController } from './files.controller';
+import { MemoryTokenService } from './memory-token.service';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from '../common/constants/jwt';
 
 @Module({
   imports: [
+    MemoryTokenModule,
     JwtModule.register({
       secret: jwtConstants.fileSecret,
       signOptions: { expiresIn: jwtConstants.fileExpiresIn },
     }),
   ],
-  controllers: [FilesController],
-  providers: [FilesService],
-  exports: [FilesService],
+  providers: [MemoryTokenService],
+  exports: [MemoryTokenService],
 })
-export class FilesModule {}
+export class MemoryTokenModule {}

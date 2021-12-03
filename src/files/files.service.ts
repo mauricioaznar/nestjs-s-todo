@@ -1,26 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as util from 'util';
+import { createWriteStream, ReadStream } from 'fs';
 
 @Injectable()
 export class FilesService {
-  async getFile(fileName: string) {
-    const filepath = path.join(
-      __dirname,
-      '..',
-      '..',
-      'uploads',
-      'images',
-      `two.jpg`,
+  async deleteFileIfExists(filename: string) {
+    const filePath = path.relative(process.cwd(), 'uploads/images/' + filename);
+    try {
+      const exists = await fs.promises.stat(filePath);
+      if (exists) {
+        await fs.promises.unlink(filePath);
+      }
+    } catch (e) {}
+  }
+
+  async createFile(createReadStream: any, filename: string) {
+    const filePath = path.relative(process.cwd(), 'uploads/images/' + filename);
+    return new Promise((resolve, reject) =>
+      createReadStream()
+        .pipe(createWriteStream(filePath))
+        .on('finish', () => resolve(true))
+        .on('error', (error) => reject(error)),
     );
-    return new Promise<Buffer>((resolve, reject) => {
-      fs.readFile(filepath, {}, (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
   }
 }

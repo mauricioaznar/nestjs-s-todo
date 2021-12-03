@@ -31,8 +31,6 @@ export class AuthService {
     const res = await this.validateUser(userInput.username, userInput.password);
     if (res) {
       const { password, ...rest } = res;
-      console.log({ ...rest });
-      console.log(rest);
       return {
         accessToken: this.jwtService.sign({ ...rest }),
       };
@@ -100,6 +98,18 @@ export class AuthService {
         _id: _id,
       },
       { ...userInput, password },
+    );
+  }
+
+  async updateAvatar(
+    _id: string | mongoose.Schema.Types.ObjectId | UserDocument,
+    avatar: string,
+  ): Promise<User> {
+    return this.userModel.findOneAndUpdate(
+      {
+        _id: _id,
+      },
+      { avatar },
     );
   }
 }

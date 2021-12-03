@@ -10,14 +10,16 @@ import {
 import { AuthService } from './auth.service';
 import { AuthenticationError } from 'apollo-server-core';
 import { AccessToken, LoginInput, User, UserInput } from './auth.dto';
-import { Injectable, UseGuards } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Injectable, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { ForbiddenError } from 'apollo-server-express';
 import { FileUpload, GraphQLUpload } from 'graphql-upload';
 import { createWriteStream } from 'fs';
 import { JwtService } from '@nestjs/jwt';
-import { MemoryService } from '../memory/memory.service';
+import { MemoryTokenService } from '../memory-token/memory-token.service';
+import { Cache } from 'cache-manager';
+import { FilesService } from '../files/files.service';
 
 @Resolver(() => User)
 @Injectable()
@@ -25,7 +27,9 @@ export class AuthResolver {
   constructor(
     private authService: AuthService,
     private jwtService: JwtService,
-    private memoryService: MemoryService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private memoryTokenService: MemoryTokenService,
+    private filesService: FilesService,
   ) {}
 
   @Mutation(() => AccessToken)
@@ -45,6 +49,7 @@ export class AuthResolver {
     });
   }
 
+  // todo delete file if exists
   @Mutation(() => Boolean)
   @UseGuards(GqlAuthGuard)
   async uploadFile(
@@ -60,14 +65,17 @@ export class AuthResolver {
       return new ForbiddenError('Not allowed');
     }
 
-    const extension = filename.split('.')[1];
+    const user = await this.authService.findOneByUser({ user: userId });
 
-    return new Promise((resolve, reject) =>
-      createReadStream()
-        .pipe(createWriteStream(`./uploads/images/${userId}.${extension}`))
-        .on('finish', () => resolve(true))
-        .on('error', (error) => reject(error)),
-    );
+    const oldAvatar = user.avatar;
+    if (oldAvatar) {
+      await this.filesService.deleteFileIfExists(oldAvatar);
+    }
+
+    const newFileName = `${userId}-${filename}`;
+
+    await this.authService.updateAvatar(userId, newFileName);
+    return this.filesService.createFile(createReadStream, newFileName);
   }
 
   @Mutation(() => User)
@@ -106,10 +114,16 @@ export class AuthResolver {
   }
 
   @ResolveField('avatar', () => String)
-  async avatar(@Parent() user: User, @Context() ctx): Promise<string> {
-    const token = this.jwtService.sign({});
-    console.log(this.memoryService.test());
-    return `${ctx.req.headers.origin}/files/${token}/two.jpg`;
+  async avatar(
+    @Parent() user: User,
+    @CurrentUser() currentUser,
+    @Context() ctx,
+  ): Promise<string> {
+    const token = await this.memoryTokenService.getToken(currentUser._id);
+    if (!user.avatar || user.avatar === '') {
+      return null;
+    }
+    return `${ctx.req.headers.origin}/files/${token}/${user.avatar}`;
   }
 
   // // There is no username guard here because if the person has the token, they can be any user
