@@ -49,6 +49,15 @@ export class AuthResolver {
     });
   }
 
+  @Query(() => Boolean)
+  @UseGuards(GqlAuthGuard)
+  async isUserOccupied(@Args('username') username: string) {
+    const user = await this.authService.findOneByUsername({
+      username,
+    });
+    return !!user;
+  }
+
   // todo delete file if exists
   @Mutation(() => Boolean)
   @UseGuards(GqlAuthGuard)

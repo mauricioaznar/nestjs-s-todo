@@ -5,7 +5,9 @@ import { Prop, Schema } from '@nestjs/mongoose';
 @InputType({ isAbstract: true })
 export class UserBase {
   @Field()
-  @Prop()
+  @Prop({
+    unique: true,
+  })
   username: string;
 
   @Prop()
