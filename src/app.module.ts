@@ -60,8 +60,10 @@ if (!process.env.MONGO_URL) {
           }
         }
       },
-      context: ({ req, connection }) => {
-        return connection ? { req: connection.context } : { req };
+      context: (ctx) => {
+        return ctx.connection
+          ? { ...ctx, req: ctx.connection.context }
+          : { ...ctx, req: ctx.req };
       },
     }),
     MongooseModule.forRoot(

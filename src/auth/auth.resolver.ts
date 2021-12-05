@@ -10,7 +10,13 @@ import {
 import { AuthService } from './auth.service';
 import { AuthenticationError } from 'apollo-server-core';
 import { AccessToken, LoginInput, User, UserInput } from './auth.dto';
-import { CACHE_MANAGER, Inject, Injectable, UseGuards } from '@nestjs/common';
+import {
+  CACHE_MANAGER,
+  ExecutionContext,
+  Inject,
+  Injectable,
+  UseGuards,
+} from '@nestjs/common';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { ForbiddenError } from 'apollo-server-express';
@@ -20,6 +26,8 @@ import { JwtService } from '@nestjs/jwt';
 import { MemoryTokenService } from '../memory-token/memory-token.service';
 import { Cache } from 'cache-manager';
 import { FilesService } from '../files/files.service';
+
+import * as os from 'os';
 
 @Resolver(() => User)
 @Injectable()
@@ -129,10 +137,14 @@ export class AuthResolver {
     @Context() ctx,
   ): Promise<string> {
     const token = await this.memoryTokenService.getToken(currentUser._id);
+
     if (!user.avatar || user.avatar === '') {
       return null;
     }
-    return `${ctx.req.headers.origin}/files/${token}/${user.avatar}`;
+
+    return `http${ctx.req.secure ? 's' : ''}://${
+      ctx.req.headers.host
+    }/files/${token}/${user.avatar}`;
   }
 
   // // There is no username guard here because if the person has the token, they can be any user
