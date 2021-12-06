@@ -83,6 +83,13 @@ if (!process.env.MONGO_URL) {
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(graphqlUploadExpress()).forRoutes('graphql');
+    consumer
+      .apply(
+        graphqlUploadExpress({
+          maxFileSize: 1000,
+          maxFiles: 3,
+        }),
+      )
+      .forRoutes('graphql');
   }
 }

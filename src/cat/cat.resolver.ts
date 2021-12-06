@@ -51,7 +51,7 @@ export class CatResolver {
         );
       }
     } catch (e) {
-      return false;
+      return e;
     }
 
     return true;
