@@ -10,24 +10,14 @@ import {
 import { AuthService } from './auth.service';
 import { AuthenticationError } from 'apollo-server-core';
 import { AccessToken, LoginInput, User, UserInput } from './auth.dto';
-import {
-  CACHE_MANAGER,
-  ExecutionContext,
-  Inject,
-  Injectable,
-  UseGuards,
-} from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { ForbiddenError } from 'apollo-server-express';
 import { FileUpload, GraphQLUpload } from 'graphql-upload';
-import { createWriteStream } from 'fs';
 import { JwtService } from '@nestjs/jwt';
 import { MemoryTokenService } from '../memory-token/memory-token.service';
-import { Cache } from 'cache-manager';
 import { FilesService } from '../files/files.service';
-
-import * as os from 'os';
 
 @Resolver(() => User)
 @Injectable()
@@ -35,7 +25,6 @@ export class AuthResolver {
   constructor(
     private authService: AuthService,
     private jwtService: JwtService,
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private memoryTokenService: MemoryTokenService,
     private filesService: FilesService,
   ) {}
@@ -142,9 +131,9 @@ export class AuthResolver {
       return null;
     }
 
-    return `http${ctx.req.secure ? 's' : ''}://${
-      ctx.req.headers.host
-    }/files/${token}/${user.avatar}`;
+    const baseUrl = this.filesService.getFileBaseEndpointUrl(ctx);
+
+    return `${baseUrl}/${token}/${user.avatar}`;
   }
 
   // // There is no username guard here because if the person has the token, they can be any user

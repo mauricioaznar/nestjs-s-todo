@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as util from 'util';
-import { createWriteStream, ReadStream } from 'fs';
+import { createWriteStream } from 'fs';
 
 @Injectable()
 export class FilesService {
@@ -24,5 +23,9 @@ export class FilesService {
         .on('finish', () => resolve(true))
         .on('error', (error) => reject(error)),
     );
+  }
+
+  async getFileBaseEndpointUrl(ctx: any) {
+    return `http${ctx.req.secure ? 's' : ''}://${ctx.req.headers.host}/files`;
   }
 }
