@@ -26,6 +26,14 @@ export class CatService {
     return this.catModel.findByIdAndDelete(id);
   }
 
+  async findCat(id: string) {
+    return this.catModel
+      .findOne({
+        _id: id,
+      })
+      .exec();
+  }
+
   async addFilenames(
     _id: string | mongoose.Schema.Types.ObjectId | CatDocument,
     filename: string,

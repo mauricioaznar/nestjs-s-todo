@@ -32,12 +32,32 @@ export class CatResolver {
   }
 
   @Mutation(() => Cat)
-  async createCat(@Args('catInput') input: CatInput) {
-    return this.catService.create(input);
+  async createCat(
+    @Args('catInput') input: CatInput,
+    @Args({ name: 'files', type: () => [GraphQLUpload] })
+    filePromises: FileUpload[],
+  ) {
+    const cat = await this.catService.create(input);
+    await this.updateCatFiles(cat._id, filePromises);
+    return cat;
   }
 
   @Mutation(() => Cat)
-  async updateCat(@Args('_id') id: string, @Args('catInput') input: CatInput) {
+  async updateCat(
+    @Args('_id') id: string,
+    @Args('catInput') input: CatInput,
+    @Args('filenames', { type: () => [String] }) filenames: string[],
+    @Args({ name: 'files', type: () => [GraphQLUpload] })
+    filePromises: FileUpload[],
+  ) {
+    const oldCat = await this.catService.findCat(id);
+    const removedFilenames = oldCat.filenames.filter((oldFilename) => {
+      return !filenames.find((newFilename) => newFilename === oldFilename);
+    });
+    for (const file of removedFilenames) {
+      await this.filesService.deleteFileIfExists(file);
+    }
+    await this.updateCatFiles(id, filePromises);
     return this.catService.update(id, input);
   }
 
@@ -52,18 +72,7 @@ export class CatResolver {
     @Args({ name: 'files', type: () => [GraphQLUpload] })
     filePromises: FileUpload[],
   ) {
-    try {
-      const files = await Promise.all(filePromises);
-      for (const file of files) {
-        const fileHash = crypto.randomBytes(20).toString('hex');
-        const filename = `${fileHash}-${file.filename}`;
-        await this.catService.addFilenames(id, filename);
-        await this.filesService.createFile(file.createReadStream, filename);
-      }
-    } catch (e) {
-      return e;
-    }
-
+    await this.updateCatFiles(id, filePromises);
     return true;
   }
 
@@ -78,5 +87,19 @@ export class CatResolver {
     return cat.filenames.map((filename) => {
       return `${baseUrl}/${token}/${filename}`;
     });
+  }
+
+  async updateCatFiles(id: string, filePromises: FileUpload[]) {
+    try {
+      const files = await Promise.all(filePromises);
+      for (const file of files) {
+        const fileHash = crypto.randomBytes(20).toString('hex');
+        const filename = `${fileHash}-${file.filename}`;
+        await this.catService.addFilenames(id, filename);
+        await this.filesService.createFile(file.createReadStream, filename);
+      }
+    } catch (e) {
+      return e;
+    }
   }
 }
