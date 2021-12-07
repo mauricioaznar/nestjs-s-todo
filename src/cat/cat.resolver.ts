@@ -52,9 +52,12 @@ export class CatResolver {
   ) {
     const oldCat = await this.catService.findCat(id);
     const removedFilenames = oldCat.filenames.filter((oldFilename) => {
-      return !filenames.find((newFilename) => newFilename === oldFilename);
+      return !filenames.find((newFilename) =>
+        newFilename.includes(oldFilename),
+      );
     });
     for (const file of removedFilenames) {
+      await this.catService.removeFilename(id, file);
       await this.filesService.deleteFileIfExists(file);
     }
     await this.updateCatFiles(id, filePromises);
@@ -76,8 +79,8 @@ export class CatResolver {
     return true;
   }
 
-  @ResolveField('files', () => [String])
-  async files(
+  @ResolveField('filenames', () => [String])
+  async filenames(
     @Parent() cat: Cat,
     @CurrentUser() currentUser,
     @Context() ctx,
@@ -95,7 +98,7 @@ export class CatResolver {
       for (const file of files) {
         const fileHash = crypto.randomBytes(20).toString('hex');
         const filename = `${fileHash}-${file.filename}`;
-        await this.catService.addFilenames(id, filename);
+        await this.catService.addFilename(id, filename);
         await this.filesService.createFile(file.createReadStream, filename);
       }
     } catch (e) {

@@ -45,7 +45,4 @@ export class Cat extends CatBase {
   @Field(() => [String])
   @Prop()
   filenames: string[];
-
-  @Field(() => [String])
-  files: string[];
 }

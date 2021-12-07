@@ -34,7 +34,7 @@ export class CatService {
       .exec();
   }
 
-  async addFilenames(
+  async addFilename(
     _id: string | mongoose.Schema.Types.ObjectId | CatDocument,
     filename: string,
   ): Promise<Cat> {
@@ -46,7 +46,25 @@ export class CatService {
         $push: {
           filenames: filename,
         },
-        breed: 'popo',
+      },
+    );
+  }
+
+  async removeFilename(
+    _id: string | mongoose.Schema.Types.ObjectId | CatDocument,
+    filename: string,
+  ): Promise<Cat> {
+    return this.catModel.findOneAndUpdate(
+      {
+        _id: _id,
+      },
+      {
+        $pull: {
+          filenames: filename,
+        },
+      },
+      {
+        multi: true,
       },
     );
   }
