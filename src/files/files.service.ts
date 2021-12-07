@@ -25,7 +25,7 @@ export class FilesService {
     );
   }
 
-  async getFileBaseEndpointUrl(ctx: any) {
+  getFileBaseEndpointUrl(ctx: any) {
     return `http${ctx.req.secure ? 's' : ''}://${ctx.req.headers.host}/files`;
   }
 }

@@ -41,4 +41,11 @@ export class CatInput extends CatBase {}
 export class Cat extends CatBase {
   @Field({ nullable: false })
   readonly _id: string;
+
+  @Field(() => [String])
+  @Prop()
+  filenames: string[];
+
+  @Field(() => [String])
+  files: string[];
 }

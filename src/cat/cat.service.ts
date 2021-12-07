@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CatDocument } from './cat.schema';
 import { Model } from 'mongoose';
 import { Cat, CatInput } from './cat.dto';
+import * as mongoose from 'mongoose';
 
 @Injectable()
 export class CatService {
@@ -23,5 +24,22 @@ export class CatService {
 
   async delete(id: string): Promise<Cat> {
     return this.catModel.findByIdAndDelete(id);
+  }
+
+  async addFilenames(
+    _id: string | mongoose.Schema.Types.ObjectId | CatDocument,
+    filename: string,
+  ): Promise<Cat> {
+    return this.catModel.findOneAndUpdate(
+      {
+        _id: _id,
+      },
+      {
+        $push: {
+          filenames: filename,
+        },
+        breed: 'popo',
+      },
+    );
   }
 }
