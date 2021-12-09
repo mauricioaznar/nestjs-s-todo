@@ -6,8 +6,7 @@
 
 ### Currently implementing
 
-* refactor useAppVariant
-* todo check with react router typescript (history.location.state?.todo as GetTodosQuery ["todos"] [number] || undefined)
+
 * Array item need to display an error when no item has been specified.
 * Text field custom rules
   * telephone
@@ -34,6 +33,8 @@
   * delete file if exists
 * username must be unique
 * refactor custom rules on MauTextField
+* refactor useAppVariant
+* todo check with react router typescript (history.location.state?.todo as GetTodosQuery ["todos"] [number] || undefined)
 
 ### < 29/11/2021
 
