@@ -6,15 +6,15 @@ import {
 } from '@nestjs/common';
 import { graphqlUploadExpress } from 'graphql-upload';
 import { GraphQLModule } from '@nestjs/graphql';
-import { CatModule } from './cat/cat.module';
+import { CatModule } from './modules/cat/cat.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthModule } from './auth/auth.module';
-import { TodoModule } from './todo/todo.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { TodoModule } from './modules/todo/todo.module';
 import { ApolloError } from 'apollo-server-express';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
-import { IsYearMonth } from './common/class-validator/is-year-month';
-import { FilesModule } from './files/files.module';
-import { MemoryTokenModule } from './memory-token/memory-token.module';
+import { IsYearMonth } from './modules/common/class-validator/is-year-month';
+import { FilesModule } from './modules/files/files.module';
+import { MemoryTokenModule } from './modules/memory-token/memory-token.module';
 
 if (!process.env.MONGO_DATABASE) {
   throw new Error('process.env.MONGO_DATABASE is not defined');

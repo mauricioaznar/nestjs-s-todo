@@ -12,11 +12,9 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "env-cmd -f ./.env node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migration:run:test": "env-cmd -f ./.env.test migrate-mongo up",
+    "pretest": "npm run migration:run:test",
+    "test": "env-cmd -f .env.test jest --watch",
     "dev:migrate": "env-cmd -f ./.env.develop migrate-mongo up",
     "dev:status": "env-cmd -f ./.env.develop migrate-mongo status",
     "prod:migrate": "env-cmd -f ./.env migrate-mongo up",
@@ -44,6 +42,7 @@
     "graphql-tools": "^8.2.0",
     "graphql-upload": "^12.0.0",
     "moment": "^2.29.1",
+    "mongodb": "^4.2.1",
     "mongoose": "^6.0.9",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
@@ -80,13 +79,14 @@
     "typescript": "^4.4.3"
   },
   "jest": {
+    "globalSetup": "<rootDir>/__tests__/factories/setup-database.ts",
     "moduleFileExtensions": [
       "js",
       "json",
       "ts"
     ],
     "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
+    "testRegex": ".*\\.test\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },

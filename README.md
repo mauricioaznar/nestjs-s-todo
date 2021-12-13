@@ -6,10 +6,9 @@
 
 ### Currently implementing
 
-
-* Array item need to display an error when no item has been specified.
+* testing
 * Text field custom rules
-  * telephone
+  * telephone8
 
 
 ### Improvements
@@ -25,6 +24,10 @@
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 ## Done
+
+### < 11/12/2021
+
+* Array item need to display an error when no item has been specified.
 
 
 ### < 08/12/2021
