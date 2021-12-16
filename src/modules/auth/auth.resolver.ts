@@ -31,7 +31,6 @@ export class AuthResolver {
 
   @Mutation(() => AccessToken)
   async login(@Args('loginInput') input: LoginInput) {
-    console.log(input);
     const result = await this.authService.login(input);
     if (result) return result;
     throw new AuthenticationError(
