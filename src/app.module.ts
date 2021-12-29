@@ -14,7 +14,8 @@ import { ApolloError } from 'apollo-server-express';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { IsYearMonth } from './modules/common/class-validator/is-year-month';
 import { FilesModule } from './modules/files/files.module';
-import { MemoryTokenModule } from './modules/memory-token/memory-token.module';
+import { MemoryTokenModule } from './modules/common/services/memory-token/memory-token.module';
+import { NoteModule } from './modules/note/note.module';
 
 if (!process.env.MONGO_DATABASE) {
   throw new Error('process.env.MONGO_DATABASE is not defined');
@@ -77,6 +78,7 @@ if (!process.env.MONGO_URL) {
     AuthModule,
     TodoModule,
     MemoryTokenModule,
+    NoteModule,
     FilesModule,
     IsYearMonth,
   ],

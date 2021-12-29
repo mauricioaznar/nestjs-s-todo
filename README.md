@@ -25,6 +25,12 @@
 
 ## Done
 
+### 28/12/2021
+
+* Changed layout
+* Added remaining ui engineer challenges
+
+
 ### < 11/12/2021
 
 * Array item need to display an error when no item has been specified.

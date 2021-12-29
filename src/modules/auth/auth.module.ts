@@ -9,7 +9,7 @@ import { AuthResolver } from './auth.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './auth.schema';
 import { User } from './auth.dto';
-import { MemoryTokenModule } from '../memory-token/memory-token.module';
+import { MemoryTokenModule } from '../common/services/memory-token/memory-token.module';
 import { FilesModule } from '../files/files.module';
 
 @Module({

@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CatSchema } from './cat.schema';
 import { Cat } from './cat.dto';
 import { FilesModule } from '../files/files.module';
-import { MemoryTokenModule } from '../memory-token/memory-token.module';
+import { MemoryTokenModule } from '../common/services/memory-token/memory-token.module';
 
 @Module({
   imports: [

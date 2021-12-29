@@ -16,7 +16,7 @@ import { CurrentUser } from './decorators/current-user.decorator';
 import { ForbiddenError } from 'apollo-server-express';
 import { FileUpload, GraphQLUpload } from 'graphql-upload';
 import { JwtService } from '@nestjs/jwt';
-import { MemoryTokenService } from '../memory-token/memory-token.service';
+import { MemoryTokenService } from '../common/services/memory-token/memory-token.service';
 import { FilesService } from '../files/files.service';
 
 @Resolver(() => User)

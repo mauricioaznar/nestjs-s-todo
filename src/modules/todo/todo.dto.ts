@@ -17,9 +17,9 @@ import {
   Validate,
   ValidateNested,
 } from 'class-validator';
-import relayTypes from '../common/relay.types';
+import relayTypes from '../common/dto/relay.types';
 import { Type } from 'class-transformer';
-import { ColumnOrder } from '../common/column-order';
+import { ColumnOrder } from '../common/dto/column-order';
 import { IsYearMonth } from '../common/class-validator/is-year-month';
 
 @ObjectType()

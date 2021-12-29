@@ -15,7 +15,7 @@ import { FileUpload, GraphQLUpload } from 'graphql-upload';
 import * as crypto from 'crypto';
 import { FilesService } from '../files/files.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { MemoryTokenService } from '../memory-token/memory-token.service';
+import { MemoryTokenService } from '../common/services/memory-token/memory-token.service';
 
 @Resolver(() => Cat)
 export class CatResolver {
