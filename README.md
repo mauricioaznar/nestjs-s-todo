@@ -6,10 +6,7 @@
 
 ### Currently implementing
 
-* reduce amount of files on root folder (server)
 * save md files in postgres
-* what tools does postgres offer?
-* what tools does prisma offer?
 * react candy crush
 * new pagination system
 * testing

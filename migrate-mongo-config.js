@@ -1,4 +1,4 @@
-// In this file you can configure migrate-mongo
+// In this file you can configure migrate-migrate-mongo
 
 const config = {
   mongodb: {
@@ -15,7 +15,7 @@ const config = {
   },
 
   // The migrations dir, can be an relative or absolute path. Only edit this when really necessary.
-  migrationsDir: 'mongo/migrations',
+  migrationsDir: 'migrate-mongo/migrations',
 
   // The mongodb collection where the applied changes are stored. Only edit this when really necessary.
   changelogCollectionName: 'changelog',
