@@ -6,6 +6,12 @@
 
 ### Currently implementing
 
+* reduce amount of files on root folder (server)
+* save md files in postgres
+* what tools does postgres offer?
+* what tools does prisma offer?
+* react candy crush
+* new pagination system
 * testing
 * Text field custom rules
   * telephone8
@@ -13,9 +19,22 @@
 
 ### Improvements
 
-
 * filtering by public all and user todos
 * (bug) deleting a todo: when having multiple pages and when the last todo on the page is being deleted, breaks pagination.
+
+### Improvements on mons
+
+* separe deletion of files from getDocuments (front end responsable) or pass files in documentPost
+
+
+
+### Improvements on notary
+
+* reduce document field size (amount)
+* add more feedback to errors
+* reconnect to auth room when socket connection gets lost
+* remove comment system
+* add file upload
 
 
 ### Issues
@@ -27,7 +46,7 @@
 
 ### 28/12/2021
 
-* Changed layout
+* Changed layout permanent sidebar
 * Added remaining ui engineer challenges
 
 
