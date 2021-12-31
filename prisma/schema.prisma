@@ -30,4 +30,5 @@ model Note {
   id        Int      @default(autoincrement()) @id
   title     String
   markdownContent String @db.Text @default("")
+  authorId  String?
 }

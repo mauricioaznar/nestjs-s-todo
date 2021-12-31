@@ -1,4 +1,5 @@
 import { ObjectType, Field, InputType } from '@nestjs/graphql';
+import { User } from '../auth/auth.dto';
 
 @ObjectType({ isAbstract: true })
 @InputType({ isAbstract: true })
@@ -17,4 +18,10 @@ export class NoteInput extends NoteBase {}
 export class Note extends NoteBase {
   @Field({ nullable: false })
   readonly id: number;
+
+  @Field()
+  authorId?: string;
+
+  @Field()
+  author?: User;
 }

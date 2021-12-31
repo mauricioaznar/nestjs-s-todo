@@ -24,8 +24,6 @@
     "postgre:dev:reset": "env-cmd -f ./.env.develop prisma migrate reset",
     "postgre:dev:generate": "env-cmd -f ./.env.develop prisma generate",
     "postgre:prod:migrate": "env-cmd -f ./.env prisma migrate dev",
-    "postgre:prod:create-migration": "env-cmd -f ./.env prisma migrate dev --create-only",
-    "postgre:prod:reset": "env-cmd -f ./.env prisma migrate reset",
     "postgre:prod:generate": "env-cmd -f ./.env prisma generate"
   },
   "author": "",

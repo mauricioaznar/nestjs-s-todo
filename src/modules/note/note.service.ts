@@ -12,8 +12,13 @@ export class NoteService {
     return this.prisma.note.findMany();
   }
 
-  async create(noteInput: NoteInput) {
-    return this.prisma.note.create({ data: noteInput });
+  async create(noteInput: NoteInput, userId: string) {
+    return this.prisma.note.create({
+      data: {
+        ...noteInput,
+        authorId: userId,
+      },
+    });
   }
 
   async update(id: number, noteInput: NoteInput) {
