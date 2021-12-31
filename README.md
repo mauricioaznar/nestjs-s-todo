@@ -6,7 +6,10 @@
 
 ### Currently implementing
 
-* save md files in postgres
+* only allow author to update md file
+* delete md files
+
+
 * react candy crush
 * new pagination system
 * testing
@@ -40,6 +43,11 @@
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 ## Done
+
+### 31/12/2021
+
+* save md files in postgres
+
 
 ### 28/12/2021
 

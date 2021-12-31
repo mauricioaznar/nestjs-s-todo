@@ -12,6 +12,14 @@ export class NoteService {
     return this.prisma.note.findMany();
   }
 
+  async getNoteById(id: number) {
+    return this.prisma.note.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
+
   async create(noteInput: NoteInput, userId: string) {
     return this.prisma.note.create({
       data: {
@@ -24,6 +32,14 @@ export class NoteService {
   async update(id: number, noteInput: NoteInput) {
     return this.prisma.note.update({
       data: noteInput,
+      where: {
+        id: id,
+      },
+    });
+  }
+
+  async delete(id: number) {
+    return this.prisma.note.delete({
       where: {
         id: id,
       },
