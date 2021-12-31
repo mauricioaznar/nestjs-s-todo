@@ -6,10 +6,6 @@
 
 ### Currently implementing
 
-* only allow author to update md file
-* delete md files
-
-
 * react candy crush
 * new pagination system
 * testing
@@ -47,6 +43,9 @@
 ### 31/12/2021
 
 * save md files in postgres
+* update md files
+* delete md files
+* only allow author to update and delete md file
 
 
 ### 28/12/2021
