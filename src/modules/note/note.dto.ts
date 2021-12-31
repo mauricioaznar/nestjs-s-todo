@@ -7,7 +7,7 @@ export class NoteBase {
   title: string;
 
   @Field()
-  description: string;
+  markdownContent: string;
 }
 
 @InputType('NoteInput')
@@ -16,5 +16,5 @@ export class NoteInput extends NoteBase {}
 @ObjectType('Note')
 export class Note extends NoteBase {
   @Field({ nullable: false })
-  readonly id: string;
+  readonly id: number;
 }

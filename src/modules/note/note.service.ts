@@ -15,4 +15,13 @@ export class NoteService {
   async create(noteInput: NoteInput) {
     return this.prisma.note.create({ data: noteInput });
   }
+
+  async update(id: number, noteInput: NoteInput) {
+    return this.prisma.note.update({
+      data: noteInput,
+      where: {
+        id: id,
+      },
+    });
+  }
 }

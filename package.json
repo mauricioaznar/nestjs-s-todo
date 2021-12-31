@@ -20,7 +20,9 @@
     "mongo:prod:migrate": "env-cmd -f ./.env migrate-mongo up",
     "mongo:prod:status": "env-cmd -f ./.env migrate-mongo status",
     "postgre:dev:migrate": "env-cmd -f ./.env.develop prisma migrate dev",
-    "postgre:dev:create-migration": "env-cmd -f ./.env.develop prisma migrate dev --create-only"
+    "postgre:dev:create-migration": "env-cmd -f ./.env.develop prisma migrate dev --create-only",
+    "postgre:dev:reset": "env-cmd -f ./.env.develop prisma migrate reset",
+    "postgre:dev:generate": "env-cmd -f ./.env.develop prisma generate"
   },
   "author": "",
   "license": "ISC",
