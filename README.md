@@ -15,22 +15,9 @@
 
 ### Improvements
 
+
 * filtering by public all and user todos
 * (bug) deleting a todo: when having multiple pages and when the last todo on the page is being deleted, breaks pagination.
-
-### Improvements on mons
-
-* separe deletion of files from getDocuments (front end responsable) or pass files in documentPost
-
-
-
-### Improvements on notary
-
-* reduce document field size (amount)
-* add more feedback to errors
-* reconnect to auth room when socket connection gets lost
-* remove comment system
-* add file upload
 
 
 ### Issues
@@ -39,6 +26,11 @@
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 ## Done
+
+
+### 03-01-2022 
+
+* added ui engineering problems
 
 ### 31/12/2021
 
