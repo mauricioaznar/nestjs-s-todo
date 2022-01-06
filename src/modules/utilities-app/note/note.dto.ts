@@ -1,5 +1,5 @@
 import { ObjectType, Field, InputType } from '@nestjs/graphql';
-import { User } from '../auth/auth.dto';
+import { User } from '../../auth/auth.dto';
 
 @ObjectType({ isAbstract: true })
 @InputType({ isAbstract: true })

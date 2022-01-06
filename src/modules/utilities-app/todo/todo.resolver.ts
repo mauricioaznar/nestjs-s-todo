@@ -14,12 +14,12 @@ import { PubSub } from 'graphql-subscriptions';
 
 // local
 import { TodoService } from './todo.service';
-import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { GqlAuthGuard } from '../../auth/guards/gql-auth.guard';
 import TodoResponse, { Todo, TodoInput, TodoQueryArgs } from './todo.dto';
-import { User } from '../auth/auth.dto';
-import { AuthService } from '../auth/auth.service';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import ConnectionArgs from '../common/dto/connection-args';
+import { User } from '../../auth/auth.dto';
+import { AuthService } from '../../auth/auth.service';
+import { CurrentUser } from '../../auth/decorators/current-user.decorator';
+import ConnectionArgs from '../../common/dto/connection-args';
 
 const pubSub = new PubSub();
 
