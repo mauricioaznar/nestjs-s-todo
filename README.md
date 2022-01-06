@@ -6,11 +6,15 @@
 
 ### Currently implementing
 
+* add the option to disable client validation
+* add the option to disable server validation
+* add validation for file types in react (maybe in server too?)
 * react candy crush
 * new pagination system
 * testing
 * Text field custom rules
   * telephone8
+
 
 ### Renaming && reorganizing
 
@@ -21,7 +25,7 @@
 * Maybe rename notes to logs 
 * templates inside an app to another name
 * change app-variant to another name (universe, realm, module, programs!!, channel)
-* group folders inside of (templates)? according to their similarity
+* group folders inside (templates)? according to their similarity
 * add an (app-variant)? to each grouping (app-variant)?
 
 
