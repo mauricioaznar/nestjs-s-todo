@@ -8,7 +8,7 @@ import { graphqlUploadExpress } from 'graphql-upload';
 import { GraphQLModule } from '@nestjs/graphql';
 import { CatModule } from './modules/forms-program/cat/cat.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthModule } from './modules/auth/auth.module';
+import { AuthModule } from './modules/auth-program/auth.module';
 import { TodoModule } from './modules/utilities-program/todo/todo.module';
 import { ApolloError } from 'apollo-server-express';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';

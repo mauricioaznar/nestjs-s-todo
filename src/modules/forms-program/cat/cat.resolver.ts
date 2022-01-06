@@ -9,12 +9,12 @@ import {
 } from '@nestjs/graphql';
 import { CatService } from './cat.service';
 import { Cat, CatInput } from './cat.dto';
-import { GqlAuthGuard } from '../../auth/guards/gql-auth.guard';
+import { GqlAuthGuard } from '../../auth-program/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { FileUpload, GraphQLUpload } from 'graphql-upload';
 import * as crypto from 'crypto';
 import { FilesService } from '../../files/files.service';
-import { CurrentUser } from '../../auth/decorators/current-user.decorator';
+import { CurrentUser } from '../../auth-program/decorators/current-user.decorator';
 import { MemoryTokenService } from '../../common/services/memory-token/memory-token.service';
 
 @Resolver(() => Cat)

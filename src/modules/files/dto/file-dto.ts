@@ -1,4 +1,4 @@
-import { Public } from '../../auth/decorators/public.decorator';
+import { Public } from '../../auth-program/decorators/public.decorator';
 import { Get } from '@nestjs/common';
 
 export class FileDto {

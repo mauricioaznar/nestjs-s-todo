@@ -18,6 +18,6 @@ export class AuthController {
   async login(@Body() loginDto: LoginInput) {
     const result = await this.authService.login(loginDto);
     if (result) return result;
-    throw new UnauthorizedException('Invalid auth tokens');
+    throw new UnauthorizedException('Invalid auth-program-program tokens');
   }
 }

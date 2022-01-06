@@ -6,7 +6,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { FilesService } from './files.service';
-import { Public } from '../auth/decorators/public.decorator';
+import { Public } from '../auth-program/decorators/public.decorator';
 import { JwtService } from '@nestjs/jwt';
 
 @Controller('files')

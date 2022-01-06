@@ -6,6 +6,7 @@
 
 ### Currently implementing
 
+* Maybe rename notes to logs
 * add the option to disable client validation
 * add the option to disable server validation
 * add validation for file types in react (maybe in server too?)
@@ -16,17 +17,6 @@
   * telephone8
 
 
-### Renaming && reorganizing
-
-* Main.tsx to SandboxWrapper.tsx?
-* App.tsx to ApplicationsHandler.tsx?
-* Lists providers together. Is it possible?
-* Separate auth from providers?.
-* Maybe rename notes to logs 
-* templates inside an app to another name
-* change app-variant to another name (universe, realm, module, programs!!, channel)
-* group folders inside (templates)? according to their similarity
-* add an (app-variant)? to each grouping (app-variant)?
 
 
 ### Improvements
@@ -42,6 +32,17 @@
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 ## Done
+
+### 06-01-2022
+
+* add a program to each grouping
+* change app-variant to another program
+* Main.tsx to AuthorizationWrapper.tsx
+  * Separate auth from providers.
+* move app configuration into one file -> index.ts
+* App.tsx to ProgramHandler.tsx
+* group folders inside (templates)? according to their similarity
+  * renamed to programs
 
 
 ### 03-01-2022 
