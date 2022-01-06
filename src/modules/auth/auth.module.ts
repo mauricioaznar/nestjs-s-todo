@@ -11,6 +11,7 @@ import { UserSchema } from './auth.schema';
 import { User } from './auth.dto';
 import { MemoryTokenModule } from '../common/services/memory-token/memory-token.module';
 import { FilesModule } from '../files/files.module';
+import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { FilesModule } from '../files/files.module';
     FilesModule,
     MemoryTokenModule,
   ],
+  controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy, AuthResolver],
   exports: [AuthService],
 })
