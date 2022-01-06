@@ -6,7 +6,8 @@
 
 ### Currently implementing
 
-* Maybe rename notes to logs
+* re do notes
+  * rename notes to logs
 * add the option to disable client validation
 * add the option to disable server validation
 * add validation for file types in react (maybe in server too?)
