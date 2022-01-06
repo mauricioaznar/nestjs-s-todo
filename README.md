@@ -12,6 +12,18 @@
 * Text field custom rules
   * telephone8
 
+### Renaming && reorganizing
+
+* Main.tsx to SandboxWrapper.tsx?
+* App.tsx to ApplicationsHandler.tsx?
+* Lists providers together. Is it possible?
+* Separate auth from providers?.
+* Maybe rename notes to logs 
+* templates inside an app to another name
+* change app-variant to another name (universe, realm, module, programs!!, channel)
+* group folders inside of (templates)? according to their similarity
+* add an (app-variant)? to each grouping (app-variant)?
+
 
 ### Improvements
 
