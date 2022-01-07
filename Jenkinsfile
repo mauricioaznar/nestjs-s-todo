@@ -28,7 +28,7 @@ pipeline {
       }
     }
 
-    stage('Deploy') {
+    stage('Deploy ') {
       steps {
         sh 'systemctl --user restart mau-sandbox.service'
       }
