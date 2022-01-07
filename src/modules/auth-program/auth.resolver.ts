@@ -46,6 +46,11 @@ export class AuthResolver {
     });
   }
 
+  @Query(() => String, { nullable: true })
+  async getServerVersion(@CurrentUser() currentUser: User) {
+    return process.env.npm_package_version;
+  }
+
   @Query(() => Boolean)
   @UseGuards(GqlAuthGuard)
   async isUserOccupied(@Args('username') username: string) {
@@ -135,20 +140,4 @@ export class AuthResolver {
 
     return `${baseUrl}/${token}/${user.avatar}`;
   }
-
-  // // There is no username guard here because if the person has the token, they can be any user
-  // @Query('refreshToken')
-  // @UseGuards(JwtAuthGuard)
-  // async refreshToken(@Context('req') request: any): Promise<string> {
-  //     const user: UserDocument = request.user;
-  //     if (!user)
-  //         throw new AuthenticationError(
-  //             'Could not log-in with the provided credentials',
-  //         );
-  //     const result = await this.authService.createJwt(user);
-  //     if (result) return result.token;
-  //     throw new AuthenticationError(
-  //         'Could not log-in with the provided credentials',
-  //     );
-  // }
 }
