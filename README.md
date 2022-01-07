@@ -6,6 +6,7 @@
 
 ### Currently implementing
 
+* continuous integration
 * re do notes
   * rename notes to logs
 * add the option to disable client validation
