@@ -14,7 +14,7 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "migration:run:test": "env-cmd -f ./.env.test migrate-mongo up",
     "pretest": "npm run migration:run:test",
-    "test": "env-cmd -f .env.test jest --watch",
+    "test": "env-cmd -f .env.test jest",
     "mongo:dev:migrate": "env-cmd -f ./.env.develop migrate-mongo up",
     "mongo:dev:status": "env-cmd -f ./.env.develop migrate-mongo status",
     "mongo:prod:migrate": "env-cmd -f ./.env migrate-mongo up",
