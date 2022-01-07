@@ -15,6 +15,7 @@
     "migration:run:test": "env-cmd -f ./.env.test migrate-mongo up & env-cmd -f ./.env.test prisma migrate dev",
     "pretest": "env-cmd -f ./.env.test ts-node src/__tests__/factories/setup-database.ts & npm run migration:run:test",
     "test": "env-cmd -f .env.test jest --detectOpenHandles --forceExit",
+    "test:watch": "npm run test -- --watch",
     "mongo:dev:migrate": "env-cmd -f ./.env.develop migrate-mongo up",
     "mongo:dev:status": "env-cmd -f ./.env.develop migrate-mongo status",
     "mongo:prod:migrate": "env-cmd -f ./.env migrate-mongo up",
