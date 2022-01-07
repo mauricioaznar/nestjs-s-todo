@@ -7,7 +7,7 @@
 ### Currently implementing
 
 * continuous integration
-  * add jenkinsfile to projec 
+  * add jenkinsfile to project
 * re do notes
   * rename notes to logs
 * add the option to disable client validation
