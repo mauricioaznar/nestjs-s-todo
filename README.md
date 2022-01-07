@@ -6,7 +6,7 @@
 
 ### Currently implementing
 
-* continuous integration
+* continuous integration 
   * add jenkinsfile to project  
 * re do notes
   * rename notes to logs
