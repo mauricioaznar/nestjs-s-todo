@@ -3,11 +3,25 @@ pipeline {
 
   stages {
 
-    stage('Build') {
+    stage('Install') {
       steps {
         sh 'npm install'
       }
     }
+
+    stage('Build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    stage('Migrate') {
+      steps {
+        sh 'npm run postgre:prod:migrate'
+        sh 'npm run mongo:prod:migrate'
+      }
+    }
+
 
 
     stage('Test') {
