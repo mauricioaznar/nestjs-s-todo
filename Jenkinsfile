@@ -28,5 +28,12 @@ pipeline {
       }
     }
 
+    stage('Deploy') {
+      steps {
+        sh 'systemctl restart mau-sandbox.service'
+      }
+    }
+
+
   }
 }
