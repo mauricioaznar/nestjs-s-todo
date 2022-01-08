@@ -6,8 +6,11 @@
 
 ### Currently implementing
 
-* continuous integration 
-  * add jenkinsfile to project      
+
+
+
+* clean jenkins unused projects
+* start pipeline only when commit on master branch
 * re do notes
   * rename notes to logs
 * add the option to disable client validation
@@ -20,6 +23,17 @@
   * telephone8
 
 
+
+### Info to add to personal-portfolio
+
+* add resources for adding jenkins to a server
+  * installment
+  * ssl
+  * credentials problem (something about upgrading)
+  * creation of a pipeline
+    * create webhook first on github
+* add resources for deleting user linux
+* add resources for allowing certain users to run sudo commands without password
 
 
 ### Improvements
@@ -38,6 +52,8 @@
 
 ### 06-01-2022
 
+* continuous integration
+  * add jenkinsfile to project
 * add a program to each grouping
 * change app-variant to another program
 * Main.tsx to AuthorizationWrapper.tsx
