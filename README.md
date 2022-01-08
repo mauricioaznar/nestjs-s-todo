@@ -6,11 +6,7 @@
 
 ### Currently implementing
 
-
-
-
 * clean jenkins unused projects
-* start pipeline only when commit on master branch
 * re do notes
   * rename notes to logs
 * add the option to disable client validation
@@ -49,6 +45,11 @@
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 ## Done
+
+### 08-01-2022
+
+* start pipeline only when commit on master branch
+
 
 ### 06-01-2022
 
