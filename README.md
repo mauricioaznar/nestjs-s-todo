@@ -156,3 +156,4 @@
 ## Resources
 
 * [Graphql example](https://github.com/EricKit/nest-user-auth/tree/master/src/auth)
+* [restart nginx without sudo](https://stackoverflow.com/questions/3011067/restart-nginx-without-sudo)
