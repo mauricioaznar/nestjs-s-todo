@@ -48,7 +48,7 @@ export class AuthResolver {
 
   @Query(() => String, { nullable: true })
   async getServerVersion(@CurrentUser() currentUser: User) {
-    return process.env.npm_package_version;
+    return process.env.npm_package_version + ' 8====D';
   }
 
   @Query(() => Boolean)
