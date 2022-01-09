@@ -1,0 +1,21 @@
+version: '3'
+services:
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_DB: note_prod
+
+  app:
+    image: maguas/sandbox
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    ports:
+      - "3005:3005"
+    expose:
+      - "3005"
