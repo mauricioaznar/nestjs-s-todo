@@ -15,4 +15,4 @@ RUN npm install
 EXPOSE 3005
 
 # Launch application
-CMD ["npm","start"]
+CMD ["npm","run", "start:docker"]

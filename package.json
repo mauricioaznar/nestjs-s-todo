@@ -8,6 +8,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "env-cmd -f ./.env nest start",
+    "start:docker": "env-cmd -f ./.env.docker nest start",
     "dev": "env-cmd -f ./.env.develop nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "env-cmd -f ./.env node dist/main",
@@ -25,7 +26,8 @@
     "postgre:dev:reset": "env-cmd -f ./.env.develop prisma migrate reset",
     "postgre:dev:generate": "env-cmd -f ./.env.develop prisma generate",
     "postgre:prod:migrate": "env-cmd -f ./.env prisma migrate dev",
-    "postgre:prod:generate": "env-cmd -f ./.env prisma generate"
+    "postgre:prod:generate": "env-cmd -f ./.env prisma generate",
+    "postgre:docker:migrate": "env-cmd -f ./.env.docker prisma migrate dev"
   },
   "author": "",
   "license": "ISC",

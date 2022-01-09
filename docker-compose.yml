@@ -1,21 +1,39 @@
 version: '3'
 services:
 
+  mongo:
+    image: mongo
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+    ports:
+      - "27888:27017"
+    expose:
+      - "27017"
+
   postgres:
     image: postgres
     restart: always
+    ports:
+      - "5543:5432"
+    expose:
+      - "5432"
     environment:
-      POSTGRES_PASSWORD: root
       POSTGRES_USER: postgres
-      POSTGRES_DB: note_prod
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: sandbox-postgres
 
   app:
-    image: maguas/sandbox
+    build: .
     links:
       - postgres
+      - mongo
     depends_on:
       - postgres
+      - mongo
     ports:
       - "3005:3005"
     expose:
       - "3005"
+volumes:
+  mongo-data:
