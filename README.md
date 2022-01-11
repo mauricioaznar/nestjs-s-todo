@@ -6,6 +6,7 @@
 
 ### Currently implementing
 
+* docker
 * clean jenkins unused projects
 * re do notes
   * rename notes to logs
