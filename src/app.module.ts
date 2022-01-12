@@ -18,6 +18,7 @@ import { MemoryTokenModule } from './modules/common/services/memory-token/memory
 import { NoteModule } from './modules/utilities-program/note/note.module';
 import { UtilitiesProgramModule } from './modules/utilities-program/utilities-program.module';
 import { FormsProgramModule } from './modules/forms-program/forms-program.module';
+import { UiEngineeringProgramModule } from './modules/ui-engineering-program/ui-engineering-program.module';
 
 if (!process.env.MONGO_DATABASE) {
   throw new Error('process.env.MONGO_DATABASE is not defined');
@@ -79,6 +80,7 @@ if (!process.env.MONGO_URL) {
     AuthModule,
     FormsProgramModule,
     UtilitiesProgramModule,
+    UiEngineeringProgramModule,
     MemoryTokenModule,
     FilesModule,
     IsYearMonth,
