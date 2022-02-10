@@ -5,17 +5,13 @@
 ## TODO
 
 ### Currently implementing
+* dialog form validation
+* optimize nestjs-server scripts (too much repetion)
+* new pagination system
 
-* docker
-* clean jenkins unused projects
 * re do notes
   * rename notes to logs
-* add the option to disable client validation
-* add the option to disable server validation
 * add validation for file types in react (maybe in server too?)
-* react candy crush
-* new pagination system
-* testing
 * Text field custom rules
   * telephone8
   
@@ -33,6 +29,12 @@
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 ## Done
+
+### 10-02-2022
+
+* redo ui-engineering
+* redo programs
+
 
 ### 08-01-2022
 

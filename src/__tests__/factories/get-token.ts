@@ -4,7 +4,7 @@ import { INestApplication } from '@nestjs/common';
 
 export async function getAdminToken(app: INestApplication) {
   const response = await request(app.getHttpServer())
-    .post('/auth-program-program/login')
+    .post('/auth-program/login')
     .send({
       password: adminUser.password,
       email: adminUser.username,
@@ -16,7 +16,7 @@ export async function getAdminToken(app: INestApplication) {
 
 export async function getSalesmanToken(app: INestApplication) {
   const response = await request(app.getHttpServer())
-    .post('/auth-program-program/login')
+    .post('/auth-program/login')
     .send({
       password: normalUser.password,
       username: normalUser.username,

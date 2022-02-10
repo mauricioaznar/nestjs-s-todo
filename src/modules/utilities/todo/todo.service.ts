@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Todo, TodoInput, TodoQueryArgs } from './todo.dto';
 import { TodoDocument } from './todo.schema';
-import { User } from '../../auth-program/auth.dto';
+import { User } from '../../auth/auth.dto';
 import moment from 'moment';
 
 @Injectable()

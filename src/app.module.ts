@@ -6,19 +6,15 @@ import {
 } from '@nestjs/common';
 import { graphqlUploadExpress } from 'graphql-upload';
 import { GraphQLModule } from '@nestjs/graphql';
-import { CatModule } from './modules/forms-program/cat/cat.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthModule } from './modules/auth-program/auth.module';
-import { TodoModule } from './modules/utilities-program/todo/todo.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { ApolloError } from 'apollo-server-express';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { IsYearMonth } from './modules/common/class-validator/is-year-month';
 import { FilesModule } from './modules/files/files.module';
 import { MemoryTokenModule } from './modules/common/services/memory-token/memory-token.module';
-import { NoteModule } from './modules/utilities-program/note/note.module';
-import { UtilitiesProgramModule } from './modules/utilities-program/utilities-program.module';
-import { FormsProgramModule } from './modules/forms-program/forms-program.module';
-import { UiEngineeringProgramModule } from './modules/ui-engineering-program/ui-engineering-program.module';
+import { UtilitiesProgramModule } from './modules/utilities/utilities-program.module';
+import { FormsProgramModule } from './modules/forms/forms-program.module';
 
 if (!process.env.MONGO_DATABASE) {
   throw new Error('process.env.MONGO_DATABASE is not defined');
@@ -80,7 +76,6 @@ if (!process.env.MONGO_URL) {
     AuthModule,
     FormsProgramModule,
     UtilitiesProgramModule,
-    UiEngineeringProgramModule,
     MemoryTokenModule,
     FilesModule,
     IsYearMonth,

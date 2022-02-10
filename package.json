@@ -6,7 +6,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "pretty": "prettier --write \"src/**/*.ts\"",
     "start": "env-cmd -f ./.env nest start",
     "start:docker": "env-cmd -f ./.env.docker nest start",
     "dev": "env-cmd -f ./.env.develop nest start --watch",

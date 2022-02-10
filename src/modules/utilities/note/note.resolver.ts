@@ -8,11 +8,11 @@ import {
 } from '@nestjs/graphql';
 import { NoteService } from './note.service';
 import { Note, NoteInput } from './note.dto';
-import { User } from '../../auth-program/auth.dto';
+import { User } from '../../auth/auth.dto';
 import { BadRequestException, UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../../auth-program/guards/gql-auth.guard';
-import { AuthService } from '../../auth-program/auth.service';
-import { CurrentUser } from '../../auth-program/decorators/current-user.decorator';
+import { GqlAuthGuard } from '../../auth/guards/gql-auth.guard';
+import { AuthService } from '../../auth/auth.service';
+import { CurrentUser } from '../../auth/decorators/current-user.decorator';
 
 @Resolver(() => Note)
 export class NoteResolver {

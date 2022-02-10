@@ -6,9 +6,9 @@ import {
   registerEnumType,
 } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
-import { User } from '../../auth-program/auth.dto';
+import { User } from '../../auth/auth.dto';
 import * as mongoose from 'mongoose';
-import { UserDocument } from '../../auth-program/auth.schema';
+import { UserDocument } from '../../auth/auth.schema';
 import {
   ArrayMinSize,
   IsArray,
