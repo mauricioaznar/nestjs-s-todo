@@ -5,11 +5,12 @@
 ## TODO
 
 ### Currently implementing
-* dialog form validation
-* optimize nestjs-server scripts (too much repetion)
-* new pagination system
 
-* re do notes
+* dialog form validation
+* nest js deprecated error
+* redesign home page
+* new pagination system
+* re do notesnp
   * rename notes to logs
 * add validation for file types in react (maybe in server too?)
 * Text field custom rules
@@ -32,6 +33,8 @@
 
 ### 10-02-2022
 
+* optimize nestjs-server scripts (too much repetion)
+* sx not working in intellij
 * redo ui-engineering
 * redo programs
 
