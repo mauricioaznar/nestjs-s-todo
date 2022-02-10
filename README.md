@@ -10,7 +10,9 @@
 * nest js deprecated error
 * redesign home page
 * new pagination system
-* re do notesnp
+* string sorting
+
+* re do notes
   * rename notes to logs
 * add validation for file types in react (maybe in server too?)
 * Text field custom rules
