@@ -78,7 +78,6 @@ if (!process.env.MONGO_URL) {
     UtilitiesProgramModule,
     MemoryTokenModule,
     FilesModule,
-    IsYearMonth,
   ],
 })
 export class AppModule implements NestModule {

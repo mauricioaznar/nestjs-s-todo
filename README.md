@@ -6,7 +6,6 @@
 
 ### Currently implementing
 
-* nest js deprecated error
 * redesign home page
 
 * typescript inference when using functions
@@ -30,6 +29,7 @@
 
 ### Issues
 
+* nest js deprecated error (@Injectable class not allowed on imports for the next major version)
 * errors on console [month picker bug](https://github.com/mui-org/material-ui/issues/28352)
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
