@@ -6,9 +6,11 @@
 
 ### Currently implementing
 
-* dialog form validation
 * nest js deprecated error
 * redesign home page
+
+* typescript inference when using functions
+
 * new pagination system
 * string sorting
 
@@ -32,6 +34,11 @@
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 ## Done
+
+### 11-02-2022
+
+* dialog form validation
+
 
 ### 10-02-2022
 
