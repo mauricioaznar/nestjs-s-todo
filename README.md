@@ -6,16 +6,18 @@
 
 ### Currently implementing
 
-* redesign home page
 
-* typescript inference when using functions
+* improve ux of expired token
+* complex next formik form
 
-* new pagination system
 * string sorting
+* redesign home page
+* typescript inference when using functions
+* new pagination system
 
+* add validation for file types in react (maybe in server too?)
 * re do notes
   * rename notes to logs
-* add validation for file types in react (maybe in server too?)
 * Text field custom rules
   * telephone8
   
@@ -29,7 +31,6 @@
 
 ### Issues
 
-* nest js deprecated error (@Injectable class not allowed on imports for the next major version)
 * errors on console [month picker bug](https://github.com/mui-org/material-ui/issues/28352)
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
@@ -37,8 +38,11 @@
 
 ### 11-02-2022
 
+* nest js deprecated error (@Injectable class not allowed on imports for the next major version)
 * dialog form validation
-
+  * error identified on the clearing of cache
+* improve ux network error
+* installed sandbox-server on the production server
 
 ### 10-02-2022
 
