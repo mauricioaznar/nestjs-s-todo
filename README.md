@@ -38,6 +38,7 @@
 
 ### 11-02-2022
 
+* clean grupo inopack database
 * nest js deprecated error (@Injectable class not allowed on imports for the next major version)
 * dialog form validation
   * error identified on the clearing of cache
