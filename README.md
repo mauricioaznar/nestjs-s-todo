@@ -6,20 +6,16 @@
 
 ### Currently implementing
 
+* typescript inference when using functions
 * improve ux of expired token
 * string sorting
 
-
 * redesign home page
-* typescript inference when using functions
 * new pagination system
-  
-
-
 * add validation for file types in react (maybe in server too?)
 * re do notes
   * rename notes to logs
-* Text field custom rules
+* Text field (custom yup function)
   * telephone8
   
   
