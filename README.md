@@ -9,10 +9,10 @@
 * typescript inference when using functions
 * improve ux of expired token
 * string sorting
-
 * redesign home page
-* new pagination system
+
 * add validation for file types in react (maybe in server too?)
+* new pagination system
 * re do notes
   * rename notes to logs
 * Text field (custom yup function)
