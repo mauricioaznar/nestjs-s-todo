@@ -6,14 +6,15 @@
 
 ### Currently implementing
 
-
 * improve ux of expired token
-* complex next formik form
-
 * string sorting
+
+
 * redesign home page
 * typescript inference when using functions
 * new pagination system
+  
+
 
 * add validation for file types in react (maybe in server too?)
 * re do notes
@@ -35,6 +36,14 @@
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 ## Done
+
+### 12-02-2022
+
+* include Route Groups
+* complex next formik form
+  * nested inputs (reduced boilerplate)
+  * related inputs
+  * improved typing
 
 ### 11-02-2022
 
