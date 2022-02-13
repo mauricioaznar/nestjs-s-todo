@@ -6,7 +6,9 @@
 
 ### Currently implementing
 
-* improve ux of expired token
+* preserver file end line character when commiting to github
+* allow console.error on react
+* move every error to global message system
 * redesign home page
 * add validation for file types in react (maybe in server too?)
 * new pagination system
@@ -33,6 +35,8 @@
 ### 13-02-2022
 
 * string sorting
+* improve ux of expired token 
+* create global message system (react)
 
 ### 12-02-2022
 
