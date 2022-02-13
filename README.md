@@ -7,7 +7,6 @@
 ### Currently implementing
 
 * improve ux of expired token
-* string sorting
 * redesign home page
 * add validation for file types in react (maybe in server too?)
 * new pagination system
@@ -31,6 +30,10 @@
 
 ## Done
 
+### 13-02-2022
+
+* string sorting
+
 ### 12-02-2022
 
 * include Route Groups
@@ -41,6 +44,7 @@
 * typescript inference when using functions
   * [Infer arguments](https://catchts.com/infer-arguments)
   * [dot notation vs array indexing](https://stackoverflow.com/questions/48535201/why-does-typescript-not-give-an-error-when-indexing-into-non-indexable-types-an)
+  * [subtype](https://stackoverflow.com/questions/56505560/how-to-fix-ts2322-could-be-instantiated-with-a-different-subtype-of-constraint)
 
 ### 11-02-2022
 
