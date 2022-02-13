@@ -8,6 +8,7 @@
 
 * allow console.error on react
 * move every error to global message system
+
 * redesign home page
 * add validation for file types in react (maybe in server too?)
 * new pagination system
