@@ -6,11 +6,9 @@
 
 ### Currently implementing
 
-* typescript inference when using functions
 * improve ux of expired token
 * string sorting
 * redesign home page
-
 * add validation for file types in react (maybe in server too?)
 * new pagination system
 * re do notes
@@ -40,6 +38,9 @@
   * nested inputs (reduced boilerplate)
   * related inputs
   * improved typing
+* typescript inference when using functions
+  * [Infer arguments](https://catchts.com/infer-arguments)
+  * [dot notation vs array indexing](https://stackoverflow.com/questions/48535201/why-does-typescript-not-give-an-error-when-indexing-into-non-indexable-types-an)
 
 ### 11-02-2022
 
