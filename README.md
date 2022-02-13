@@ -6,7 +6,6 @@
 
 ### Currently implementing
 
-* preserver file end line character when commiting to github
 * allow console.error on react
 * move every error to global message system
 * redesign home page
@@ -37,6 +36,7 @@
 * string sorting
 * improve ux of expired token 
 * create global message system (react)
+* preserve file end line character when committing to github
 
 ### 12-02-2022
 
