@@ -6,6 +6,7 @@
 
 ### Currently implementing
 
+* session expired
 * allow console.error on react
 * move every error to global message system
 
