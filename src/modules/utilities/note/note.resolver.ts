@@ -7,12 +7,13 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { NoteService } from './note.service';
-import { Note, NoteInput } from './note.dto';
+import { Note, NoteInput, NoteOffsetResponse } from './note.dto';
 import { User } from '../../auth/auth.dto';
 import { BadRequestException, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../../auth/guards/gql-auth.guard';
 import { AuthService } from '../../auth/auth.service';
 import { CurrentUser } from '../../auth/decorators/current-user.decorator';
+import OffsetPaginatorArgs from '../../common/dto/offset-paginator/offset-paginator-args';
 
 @Resolver(() => Note)
 export class NoteResolver {
@@ -21,10 +22,17 @@ export class NoteResolver {
     private readonly authService: AuthService,
   ) {}
 
-  @Query(() => [Note])
+  @Query(() => NoteOffsetResponse)
   @UseGuards(GqlAuthGuard)
-  async notes() {
-    return this.noteService.getNotes();
+  async notes(
+    @Args() offsetPaginatorArgs: OffsetPaginatorArgs,
+  ): Promise<NoteOffsetResponse> {
+    const notes = await this.noteService.getNotes(offsetPaginatorArgs);
+    const count = await this.noteService.getCount();
+    return {
+      notes,
+      count,
+    };
   }
 
   @Mutation(() => Note)

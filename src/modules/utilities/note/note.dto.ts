@@ -25,3 +25,12 @@ export class Note extends NoteBase {
   @Field()
   author?: User;
 }
+
+@ObjectType('NoteOffsetResponse')
+export class NoteOffsetResponse {
+  @Field({ nullable: false, description: 'Note count' })
+  public count: number;
+
+  @Field(() => [Note])
+  public notes: Note[];
+}

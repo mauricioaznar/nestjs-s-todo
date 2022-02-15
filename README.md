@@ -6,6 +6,7 @@
 
 ### Currently implementing
 
+* session expired
 * allow console.error on react
 * move every error to global message system
 
@@ -35,8 +36,7 @@
 ### 13-02-2022
 
 * string sorting
-* improve ux of expired token
-  * session expired
+* improve ux of expired token 
 * create global message system (react)
 * preserve file end line character when committing to github
 

@@ -19,7 +19,7 @@ import TodoResponse, { Todo, TodoInput, TodoQueryArgs } from './todo.dto';
 import { User } from '../../auth/auth.dto';
 import { AuthService } from '../../auth/auth.service';
 import { CurrentUser } from '../../auth/decorators/current-user.decorator';
-import ConnectionArgs from '../../common/dto/connection-args';
+import ConnectionArgs from '../../common/dto/cursor-paginator/connection-args';
 
 const pubSub = new PubSub();
 
