@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../common/services/prisma/prisma.service';
 import { NoteInput } from './note.dto';
+import OffsetPaginatorArgs from '../../common/dto/offset-paginator/offset-paginator-args';
 
 @Injectable()
 export class NoteService {
@@ -8,8 +9,15 @@ export class NoteService {
     //
   }
 
-  async getNotes() {
-    return this.prisma.note.findMany();
+  async getNotes(offsetPaginatorArgs: OffsetPaginatorArgs) {
+    return this.prisma.note.findMany({
+      skip: offsetPaginatorArgs.offset,
+      take: offsetPaginatorArgs.limit,
+    });
+  }
+
+  async getCount() {
+    return this.prisma.note.count();
   }
 
   async getNoteById(id: number) {

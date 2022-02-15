@@ -6,9 +6,7 @@
 
 ### Currently implementing
 
-* session expired
-* allow console.error on react
-* move every error to global message system
+* offset pagination
 
 * redesign home page
 * add validation for file types in react (maybe in server too?)
@@ -32,6 +30,18 @@
 * animation issue/enhancement [Enter and leave overlapping](https://github.com/pmndrs/react-spring/issues/1064)
 
 ## Done
+
+### 15-02-2022
+
+
+
+
+### 14-02-2022
+
+* session expired
+* allow console.error on react
+* move every error to global message system
+
 
 ### 13-02-2022
 
