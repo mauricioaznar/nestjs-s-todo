@@ -35,9 +35,14 @@ function checkPagingSanity(args: ConnectionArgs): PagingMeta {
     : { pagingType: 'none' };
 }
 
-const getId = (cursor: ConnectionCursor) =>
-  parseInt(fromGlobalId(cursor).id, 10);
-const nextId = (cursor: ConnectionCursor) => getId(cursor) + 1;
+function getId(cursor: ConnectionCursor) {
+  const id = fromGlobalId(cursor).id;
+  return parseInt(id, 10);
+}
+
+function nextId(cursor: ConnectionCursor) {
+  return getId(cursor) + 1;
+}
 
 function getPagingParameters(args: ConnectionArgs) {
   const meta = checkPagingSanity(args);
@@ -52,7 +57,7 @@ function getPagingParameters(args: ConnectionArgs) {
     case 'backward': {
       const { before } = meta;
       let { limit } = meta;
-      let offset = getId(before!) - limit;
+      let offset = getId(before) - limit;
 
       if (offset < 0) {
         limit = Math.max(limit + offset, 0);
